@@ -9,7 +9,7 @@ export default function Navbar() {
         setActive(val)
     }
     return (
-        <div className=" bg-[#161D2F] rounded-xl px-2 md:px-0 ">
+        <div className=" bg-[#161D2F] md:rounded-xl px-2 md:px-0 ">
             <div className="flex md:flex-col justify-between items-center  mx-2 md:my-8">
                 <MdMovie size={30} className="cursor-pointer" style={{'color':"#FC4747"}}/>
                 <div className="flex md:flex-col items-center py-6  md:h-100">
