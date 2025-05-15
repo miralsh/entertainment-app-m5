@@ -9,8 +9,8 @@ export default function Navbar() {
         setActive(val)
     }
     return (
-        <div className="mx-auto  bg-[#161D2F] rounded-xl px-2 lg:px-0 w-[100%] lg:w-auto">
-            <div className="flex lg:flex-col justify-between items-center  mx-2 lg:my-8">
+        <div className="mx-auto  bg-[#161D2F] md:rounded-xl px-2 lg:px-0 w-[100%] lg:w-auto">
+            <div className="flex lg:flex-col justify-between items-center  mx-2 lg:my-8 ">
                 <MdMovie size={30} className="cursor-pointer" style={{'color':"#FC4747"}}/>
                 <div className="flex lg:flex-col items-center py-6  lg:h-100">
                     <RiLayoutGridFill className={`lg:my-4  mx-2 ${active=='Home' ? 'text-white':'text-[#5A698F]'} cursor-pointer` } size={24}  onClick={()=>{onSelect('Home')}}/>
