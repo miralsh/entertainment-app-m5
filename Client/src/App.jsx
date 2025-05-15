@@ -7,8 +7,8 @@ import Signup from './pages/signup'
 function App() {
 
   return (
-    <div className='md:flex  bg-[#10141E] md:h-full md:max-h-full'>
-      <div className='md:flex  md:px-6 py-6 bg-[#10141E] w-full h-full'>
+   <div className='lg:flex bg-[#10141E] h-full max-h-full '>
+      <div className='lg:flex  md:px-6  py-6 bg-[#10141E] w-full'>
         <Navbar />
         <BrowserRouter>
           <Routes>

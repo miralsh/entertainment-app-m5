@@ -1,6 +1,6 @@
 import { MdMovie } from "react-icons/md";
 export default function Signup() {
-    return (
+        return (
         <div className="flex justify-center w-full">
         <div className="flex flex-col lg:mx-auto items-center px-6">
             <MdMovie size={30} className="cursor-pointer my-14" style={{ 'color': "#FC4747" }} />
