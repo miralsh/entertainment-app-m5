@@ -1,0 +1,1 @@
+export const GET_TRENDING_LIST="GET_TRENDING_LIST";
