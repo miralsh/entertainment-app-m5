@@ -2,8 +2,9 @@
 import { LuSearch } from "react-icons/lu";
 import Bookmarked from "../../components/Bookmarked"
 import { useDispatch } from "react-redux";
-import { searchBookmark } from "../../../redux/action";
+import { clear_search_list, searchBookmark } from "../../../redux/action";
 import { useState } from "react";
+import { useEffect } from "react";
 const index = () => {
     const [val, setVal] = useState('')
     const dispatch = useDispatch()

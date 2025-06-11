@@ -2,6 +2,8 @@
     import { ACTIVE, ADD_TO_BOOKMARK, CLEAR_SEARCH_LIST, DELETE_BOOKMARK, GET_BOOKMARK, GET_CERTIFICATION, GET_MOVIE_CAST, GET_MOVIE_DETAIL, GET_MOVIES, GET_RECOMMENDED, GET_TRENDING_LIST, GET_TV_CAST, GET_TV_CERT, GET_TV_SERIES, GET_TV_SERIES_DETAIL, GET_USER, LOGIN, LOGIN_ERROR, SEARCH_ALL, SEARCH_BOOKMARK, SEARCH_MOVIE, SEARCH_TV, SIGNUP, SIGNUP_ERROR } from './actionType'
     import { url } from '../constants';
 
+    const baseUrl='https://entertainment-app-m5.onrender.com'
+    const tmdbUrl='https://api.themoviedb.org/'
     // Fetch trending content list from TMDB
     export const get_trending_list = () => {
         const options = {
@@ -34,7 +36,7 @@
     // Fetch movie certification data by movie ID
     export const get_certification_movie = (movie_id) => {
         const options = {
-            url: `https://api.themoviedb.org/3/movie/${movie_id}/release_dates`,
+            url: `${tmdbUrl}3/movie/${movie_id}/release_dates`,
             method: 'GET',
             headers: {
                 accept: 'application/json',
@@ -63,7 +65,7 @@
     // Fetch TV certification data by series ID
     export const get_certification_tv = (series_id) => {
     const options = {
-            url: `https://api.themoviedb.org/3/tv/${series_id}/content_ratings`,
+            url: `${tmdbUrl}3/tv/${series_id}/content_ratings`,
             method: 'GET',
             headers: {
                 accept: 'application/json',
@@ -93,7 +95,7 @@
     // Fetch recommended movies for the user from TMDB
     export const get_recommended = () => {
         const options = {
-            url: 'https://api.themoviedb.org/4/account/678ce223859fb4e6a86df1cb/movie/recommendations?page=1&include_adult=false&language=en-US',
+            url: `${tmdbUrl}4/account/678ce223859fb4e6a86df1cb/movie/recommendations?page=1&include_adult=false&language=en-US`,
             method: 'GET',
             headers: {
                 accept: 'application/json',
@@ -122,7 +124,7 @@
     // Fetch list of popular movies with pagination
     export const get_movies = (page) => {
         const options = {
-            url: `https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=en-US&page=${page}&sort_by=popularity.desc`,
+            url: `${tmdbUrl}3/discover/movie?include_adult=false&include_video=false&language=en-US&page=${page}&sort_by=popularity.desc`,
             method: 'GET',
             headers: {
                 accept: 'application/json',
@@ -151,7 +153,7 @@
     // Fetch list of popular TV series with pagination
     export const get_tvseries = (page) => {
     const options = {
-            url: `https://api.themoviedb.org/3/discover/tv?include_adult=false&include_null_first_air_dates=false&language=en-US&page=${page}&sort_by=popularity.desc`,
+            url: `${tmdbUrl}3/discover/tv?include_adult=false&include_null_first_air_dates=false&language=en-US&page=${page}&sort_by=popularity.desc`,
             method: 'GET',
             headers: {
                 accept: 'application/json',
@@ -180,7 +182,7 @@
     // Search movie by name and page
     export const search_movie = (movieName, pg) => {
     const options = {
-            url: `https://api.themoviedb.org/3/search/movie?query=${movieName}&include_adult=false&language=en-US&page=${pg}`,
+            url: `${tmdbUrl}3/search/movie?query=${movieName}&include_adult=false&language=en-US&page=${pg}`,
             method: 'GET',
             headers: {
                 accept: 'application/json',
@@ -214,7 +216,7 @@
     export const search_tv = (tv, pg) => {
 
         const options = {
-            url: `https://api.themoviedb.org/3/search/tv?query=${tv}&include_adult=false&language=en-US&page=${pg}`,
+            url: `${tmdbUrl}3/search/tv?query=${tv}&include_adult=false&language=en-US&page=${pg}`,
             method: 'GET',
             headers: {
                 accept: 'application/json',
@@ -243,7 +245,7 @@
     // Add a movie or TV series to user's bookmark
     export const add_to_bookmark = (value) => {
         return (dispatch) => {
-            axios.post('http://localhost:5000/bookmark', value, {
+            axios.post(`${baseUrl}/bookmark`, value, {
                 headers: {
                     accept: 'application/json',
                     Authorization: `Bearer ${localStorage.getItem("accesstoken")}`
@@ -270,7 +272,7 @@
     export const get_bookmark = (val) => {
         // get bookmark with user id as input
         const options = {
-            url: `http://localhost:5000/bookmark/${val}`,
+            url: `${baseUrl}/bookmark/${val}`,
             method: 'GET',
             headers: {
                 accept: 'application/json',
@@ -301,7 +303,7 @@
         // delete bookmark with id and user id as input
         console.log(id, user_id)
         const options = {
-            url: `http://localhost:5000/bookmark/${id}?user_id=${user_id}`,
+            url: `${baseUrl}/bookmark/${id}?user_id=${user_id}`,
             method: 'DELETE',
             headers: {
                 accept: 'application/json',
@@ -330,7 +332,7 @@
     // Fetch current authenticated user details
     export const get_user = () => {
     const options = {
-            url: 'http://localhost:5000/users/user',
+            url: `${baseUrl}/users/user`,
             method: 'GET',
             headers: {
                 accept: 'application/json',
@@ -360,7 +362,7 @@
     export const get_movieDetail = (id) => {
 
         const options = {
-            url: `https://api.themoviedb.org/3/movie/${id}?language=en-US`,
+            url: `${tmdbUrl}3/movie/${id}?language=en-US`,
             method: 'GET',
             headers: {
                 accept: 'application/json',
@@ -390,7 +392,7 @@
     export const get_tvseriesDetail = (id) => {
 
         const options = {
-            url: `https://api.themoviedb.org/3/tv/${id}?language=en-US`,
+            url: `${tmdbUrl}3/tv/${id}?language=en-US`,
             method: 'GET',
             headers: {
                 accept: 'application/json',
@@ -420,7 +422,7 @@
     export const get_movie_cast = (id) => {
 
         const options = {
-            url: `https://api.themoviedb.org/3/movie/${id}/credits?language=en-US`,
+            url: `${tmdbUrl}3/movie/${id}/credits?language=en-US`,
             method: 'GET',
             headers: {
                 accept: 'application/json',
@@ -450,7 +452,7 @@
     export const get_tv_cast = (id) => {
 
         const options = {
-            url: `https://api.themoviedb.org/3/tv/${id}/credits?language=en-US`,
+            url: `${tmdbUrl}3/tv/${id}/credits?language=en-US`,
             method: 'GET',
             headers: {
                 accept: 'application/json',
@@ -479,7 +481,7 @@
     // Signup new user using local backend API
     export const signup = (value) => {
         return (dispatch) => {
-            axios.post('http://localhost:5000/users/signup', value)
+            axios.post(`${baseUrl}/users/signup`, value)
                 .then((res) => {
                     dispatch(
                         ((data) => {
@@ -513,7 +515,7 @@
     // Login user using local backend API
     export const login = (value) => {
         return (dispatch) => {
-            axios.post('http://localhost:5000/users/login', value)
+            axios.post(`${baseUrl}/users/login`, value)
                 .then((res) => {
                     dispatch(
                         ((data) => {
