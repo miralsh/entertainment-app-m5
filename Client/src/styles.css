@@ -1,0 +1,31 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap');
+@import "tailwindcss";
+@theme {
+  --font-outfit:'Outfit','sans-serif';
+ 
+}
+body {
+  @apply font-outfit;
+}
+
+
+@layer utilities {
+  .scrollbar-hide {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+  }
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;  /* Chrome, Safari, Opera */
+  }
+}
+
+@font-face {
+  font-family: 'outfit-font';
+  src: url('../assets/fonts/Outfit-Light.ttf') format('truetype');
+  font-weight: normal;
+}
+
+body {
+  font-family: 'outfit-font', sans-serif;
+}

@@ -1,0 +1,16 @@
+const express=require('express')
+const cors=require('cors')
+const dbConnection = require('./config/dbConfig')
+const bookmarkRoute = require('./routes/bookmark')
+const userRoute=require("./routes/user")
+const dotenv=require('dotenv').config()
+const app=express()
+
+dbConnection()
+app.use(cors())
+app.use(express.json())
+app.use("/bookmark",bookmarkRoute)
+app.use("/users",userRoute)
+app.listen(process.env.PORT||5000,()=>{
+    console.log(`app is listening on port ${process.env.PORT||5000}`)
+})

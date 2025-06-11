@@ -1,0 +1,47 @@
+/* .input-wrapper {
+  position: relative;
+  width: 320px;
+  background-color: #1e2230;
+  border-bottom: 2px solid #ccc;
+  padding: 10px 0;
+}
+
+.input-wrapper input {
+  width: 100%;
+  padding: 10px;
+  padding-left: 0;
+  background: transparent;
+  border: none;
+  color: white;
+  font-size: 16px;
+  z-index: 1;
+  position: relative;
+}
+
+.placeholder-left,
+.placeholder-right {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+  color: #aaa;
+  font-size: 16px;
+}
+
+.placeholder-left {
+  left: 10px;
+}
+
+.placeholder-right {
+  right: 10px;
+  color: #f76b6b;
+}
+
+.input-wrapper.error {
+  border-color: #f76b6b;
+}
+
+body{
+background-color: white;
+}
+ */
