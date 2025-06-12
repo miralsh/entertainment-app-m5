@@ -4,7 +4,7 @@ import { emailRegex, pwRegex } from "../../helper";
 import { useDispatch, useSelector } from "react-redux";
 import { setActive } from "../../../redux/slices/uiSlice";
 import { signup } from "../../../redux/thunks/authThunks";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useToast } from '@chakra-ui/react'
 export default function Signup() {
     const dispatch = useDispatch()
@@ -182,7 +182,7 @@ export default function Signup() {
                         </div>
                         <button type="submit" className="text-sm w-75 bg-[#FC4747] text-white rounded my-4 py-2 hover:bg-white hover:text-black">Create an account</button>
                     </form>
-                    <p className="my-2 text-white text-sm text-center">Already have an account? <a href="/login"><span className="mx-2 text-[#FC4747]">Login</span></a></p>
+                    <p className="my-2 text-white text-sm text-center">Already have an account? <Link to="/login"><span className="mx-2 text-[#FC4747]">Login</span></Link></p>
                 </div>
             </div>
         </div>

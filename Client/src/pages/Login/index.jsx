@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { get_user, login } from "../../../redux/thunks/authThunks";
 import { get_bookmark } from "../../../redux/thunks/bookmarkThunks";
 import { setActive } from "../../../redux/slices/uiSlice";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useToast } from "@chakra-ui/react";
 export default function Login() {
     const toast = useToast()
@@ -152,7 +152,7 @@ export default function Login() {
                         </div>
                         <button type="submit" className="text-sm w-75 bg-[#FC4747] text-white rounded my-4 py-2 hover:bg-white hover:text-black">Login to your account</button>
                     </form>
-                    <p className="my-2 text-white text-sm text-center">Don't have an account? <a href="/signup"><span className="mx-2 text-[#FC4747]">Sign Up</span></a></p>
+                    <p className="my-2 text-white text-sm text-center">Don't have an account? <Link to="/signup"><span className="mx-2 text-[#FC4747]">Sign Up</span></Link></p>
                 </div>
             </div>
         </div>
