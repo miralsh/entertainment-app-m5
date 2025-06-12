@@ -214,11 +214,11 @@ const Trending = () => {
 
                             <div className='flex flex-col '>
                                 <div className='flex items-center'>
-                                    <p className='flex  items-center text-gray-200 py-1 ps-4 pe-2 text-sm'>{getYear(element.release_date)}{getYear(element.first_air_date)}</p>
+                                    <p className='flex  items-center text-gray-200 py-1 md:ps-4 md:pe-2 text-xs md:text-sm px-1'>{getYear(element.release_date)}{getYear(element.first_air_date)}</p>
                                     <hr className=" w-1 border-white border-dotted border-t-4" />
-                                    <p className='flex items-center px-2 text-sm text-gray-200 capitalize'>{element.media_type == 'movie' ? <RiFilmFill className='px-1' size={26} style={{ color: 'white' }} /> : <TbDeviceTvOld className='px-1' size={26} style={{ color: 'white' }} />}{element.media_type}</p>
+                                    <p className='flex items-center md:px-2 text-xs md:text-sm text-gray-200 capitalize'>{element.media_type == 'movie' ? <RiFilmFill className='px-1' size={26} style={{ color: 'white' }} /> : <TbDeviceTvOld className='px-1' size={26} style={{ color: 'white' }} />}{element.media_type}</p>
                                     <hr className=" w-1 border-white border-dotted border-t-4 mx-1" />
-                                    <p className='flex items-center px-2 text-sm text-gray-200 capitalize'>{element.media_type == 'movie' ? certificationMap[element.id] || 'Loading...' : tv_cert[element.id] || 'Loading...'}</p>
+                                    <p className='flex items-center md:px-2 text-xs md:text-sm text-gray-200 capitalize'>{element.media_type == 'movie' ? certificationMap[element.id] || 'Loading...' : tv_cert[element.id] || 'Loading...'}</p>
                                 </div>
                                 <p className='flex  items-center  w-[75%]  text-white  font-medium mx-4 pb-4 lg:text-xl xl:text-xl md:text-lg overflow-hidden text-ellipsis whitespace-nowrap  '
                                     style={{
