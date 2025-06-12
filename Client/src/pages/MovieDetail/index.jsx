@@ -17,7 +17,7 @@ const index = () => {
     // get cast data
     useEffect(() => { setMCast(cast) }, [cast])
     return (
-        <div className='px-4 w-full overflow-x-hidden my-8 lg:my-4 xl:my-4'>
+        <div className='md:px-4 w-full overflow-x-hidden my-8 lg:my-4 xl:my-4'>
             <div className='  flex  flex-col md:flex-row lg:flex-row '>
                 {/* poster img */}
                 <img src={`${img_url}${mDetail.poster_path}`} className='rounded-xl mx-8 h-[75%]' />
@@ -31,7 +31,7 @@ const index = () => {
                         </div>
                         <p className='text-white mx-3 md:text-xl'>( {mDetail.vote_count} votes )</p>
                     </div>
-                    <div className='grid grid-cols-4 md:gap-x-16 gap-y-2  font-bold my-4 text-sm md:text-base'>
+                    <div className='grid grid-cols-4  md:gap-x-16 gap-y-2 gap-x-4  font-bold my-4 text-sm md:text-base'>
                         <p className='text-[#87898E] w-100'>Length</p>
                         <p className='text-[#87898E]'>Language</p>
                         <p className='text-[#87898E]'>Year</p>
@@ -46,9 +46,9 @@ const index = () => {
                     {/* cast */}
                     <div >
                         <p className='text-white font-bold my-2'>Genres</p>
-                        <div className='flex'>
+                        <div className='flex flex-wrap '>
                             {mDetail.genres ? mDetail.genres.map((val, index) => (
-                                <p key={index} className='bg-white rounded px-2 py-1 me-2 font-bold text-sm'>{val.name}</p>
+                                <p key={index} className='bg-white rounded px-2 py-1 me-2 font-bold text-sm my-1'>{val.name}</p>
                             )) : (<p className='text-white'>Loading..</p>)}
                         </div>
                         <p className='text-white font-bold mt-6 mb-1'>Synopsis</p>
