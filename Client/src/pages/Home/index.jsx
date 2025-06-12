@@ -177,9 +177,11 @@ export default function Home() {
         <input placeholder="Search for movies or TV series" type="search" className="md:text-xl w-100 mx-2 focus:outline-hidden px-2 py-2 my-2 placeholder-[#87898E]  text-white focus:caret-[#FC4747] focus:border-b-1 focus:border-b-[#5A698F]" onChange={(e) => search(e)} value={val} />
       </div>
       {/* display search results if found */}
-      {searchResults && searchResults.length > 0 ?
-        (<><h2 className="text-white ">{`Found ${searchResults.length} results for '${val}'`}</h2>
-          <div className='grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4'>
+      {val.trim()!='' && searchResults && searchResults.length > 0?(<><h2 className="text-white ">{`Found ${searchResults.length} results for '${val}'`}</h2></>):(<></>)}
+      {val.trim()!='' && searchResults && searchResults.length > 0 ?
+        
+        
+         ( <div className='grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4'>
             {searchResults.map((element, index) => (
               <div key={index}>
                 {/* poster img */}
@@ -208,7 +210,7 @@ export default function Home() {
                 </div>
 
               </div>
-            ))}</div></>) : (<>
+            ))}</div>) : (val.trim()!=''?<h2 className="text-white">No data found</h2>: <>
               {/* display trending and recommended content */}
               <h2 className="text-white md:text-2xl text-xl my-4">Trending</h2>
               <Trending />
