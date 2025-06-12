@@ -2,7 +2,9 @@ import { useState } from 'react';
 import { LuSearch } from "react-icons/lu";
 import Movies from "../../components/Movies";
 import { useDispatch } from 'react-redux';
-import { clear_search_list, search_movie } from '../../../redux/action';
+import { clearMediaSearchList } from '../../../redux/slices/mediaSlice';
+import { search_movie } from '../../../redux/thunks/mediaThunks';
+//import { clear_search_list, search_movie } from '../../../redux/action';
 const index = () => {
     const [inp, setInp] = useState('')
     const dispatch = useDispatch()
@@ -15,10 +17,10 @@ const index = () => {
         debounceTimer = setTimeout(() => {
             // clear list on value empty
             if (e.target.value.trim() == "") {
-                dispatch(clear_search_list())
+                dispatch(clearMediaSearchList())
             } else {
                 // call search movie api
-                dispatch(search_movie(e.target.value, 1))
+                dispatch(search_movie({movieName:e.target.value, pg:1}))
             }
         }, 500);
     }

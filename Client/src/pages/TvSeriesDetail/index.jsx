@@ -5,8 +5,8 @@ import { FaRegStarHalfStroke, FaRegStar, FaStar, FaLink } from "react-icons/fa6"
 import { FaImdb } from "react-icons/fa"
 import { Link } from 'react-router-dom';
 const index = () => {
-    const tvSeriesDetail = useSelector(state => state.tvDetail)
-    const cast = useSelector(state => state.tv_cast)
+    const tvSeriesDetail = useSelector(state => state.media.tvDetail)
+    const cast = useSelector(state => state.media.tv_cast)
     const [tvDetail, setTvDetail] = useState({})
     const [mCast, setMCast] = useState([])
     // get tv series details

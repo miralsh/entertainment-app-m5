@@ -2,29 +2,33 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { img_url } from '../../constants';
 import { RiBookmarkFill, RiBookmarkLine, RiFilmFill } from 'react-icons/ri';
-import { add_to_bookmark, clear_search_list, delete_bookmark, get_bookmark, get_certification_movie, get_certification_tv, get_movie_cast, get_movieDetail, get_movies, search_movie, setActive } from '../../redux/action';
+//import { add_to_bookmark, clear_search_list, delete_bookmark, get_bookmark, get_certification_movie, get_certification_tv, get_movie_cast, get_movieDetail, get_movies, search_movie, setActive } from '../../redux/action';
 import { getYear } from '../helper';
 import { useNavigate } from 'react-router-dom';
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 import { useToast } from '@chakra-ui/react';
+import { clearMediaSearchList } from '../../redux/slices/mediaSlice';
+import { add_to_bookmark, delete_bookmark, get_bookmark } from '../../redux/thunks/bookmarkThunks';
+import { setActive } from '../../redux/slices/uiSlice';
+import { get_certification_movie, get_movie_cast, get_movieDetail, get_movies, search_movie } from '../../redux/thunks/mediaThunks';
 const Movies = ({ val }) => {
     const toast = useToast()
     const dispatch = useDispatch()
-    const movies = useSelector(state => state.movies.results)
-    const searched_movies = useSelector(state => state.search_movie.results)
-    const pages = useSelector(state => state.movies.total_pages)
-    const search_pages = useSelector(state => state.search_movie.total_pages)
-    const certificationMap = useSelector(state => state.certificationMap)
-    const bkmark = useSelector(state => state.bookmark)
-    const added = useSelector(state => state.added)
-    const delete_bkmark = useSelector(state => state.delete_bookmark)
+    const movies = useSelector(state => state.media.movies.results)
+    const searched_movies = useSelector(state => state.media.search_movie.results)
+    const pages = useSelector(state => state.media.movies.total_pages)
+    const search_pages = useSelector(state => state.media.search_movie.total_pages)
+    const certificationMap = useSelector(state => state.media.certificationMap)
+    const bkmark = useSelector(state => state.bookmark.bookmark)
+    const added = useSelector(state => state.bookmark.added)
+    const delete_bkmark = useSelector(state => state.bookmark.delete_bookmark)
     const [currPage, setCurrPage] = useState(1)
     const navigate = useNavigate()
     const [bookmarkTriggeredHere, setBookmarkTriggeredHere] = useState(false);
     const [bookmark, setBookMark] = useState([])
     // clear search list on page mount
     useEffect(() => {
-        dispatch(clear_search_list())
+        dispatch(clearMediaSearchList())
     }, [])
 
     // on add bookmark, call get bookmark and display toast message
@@ -92,7 +96,7 @@ const Movies = ({ val }) => {
             //state to keep track of which screen has added bookmark
             setBookmarkTriggeredHere(true);
             //if bookmark present - delete or add bookmark
-            bookmark.find(e => e.id == val.id) ? (dispatch(delete_bookmark(val.id, localStorage.getItem("user_id")))) :
+            bookmark.find(e => e.id == val.id) ? (dispatch(delete_bookmark({id:val.id,user_id:localStorage.getItem("user_id")}))) :
                 dispatch(add_to_bookmark({ ...val, media_type: "movie", user_id: localStorage.getItem("user_id") }))
         } else {
             dispatch(setActive(''))
@@ -143,7 +147,7 @@ const Movies = ({ val }) => {
 
         setCurrPage(pg)
         dispatch(get_movies(pg))
-        dispatch(search_movie(val, pg))
+        dispatch(search_movie({val, pg}))
     }
     // on prev click
     const onPrevious = () => {
@@ -156,7 +160,7 @@ const Movies = ({ val }) => {
 
         setCurrPage(pg)
         dispatch(get_movies(pg))
-        dispatch(search_movie(val, pg))
+        dispatch(search_movie({val, pg}))
     }
     // render search list or movies list
     const listToRender = searched_movies && searched_movies.length > 0 ? searched_movies : movies

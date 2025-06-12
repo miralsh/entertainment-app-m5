@@ -3,20 +3,23 @@ import { useDispatch, useSelector } from 'react-redux';
 import { img_url } from '../../constants';
 import { RiBookmarkFill, RiBookmarkLine, RiFilmFill } from 'react-icons/ri';
 import { TbDeviceTvOld } from 'react-icons/tb';
-import { add_to_bookmark, delete_bookmark, get_bookmark, get_certification_movie, get_certification_tv, get_movie_cast, get_movieDetail, get_tv_cast, get_tvseriesDetail, setActive } from '../../redux/action';
+//import { add_to_bookmark, delete_bookmark, get_bookmark, get_certification_movie, get_certification_tv, get_movie_cast, get_movieDetail, get_tv_cast, get_tvseriesDetail, setActive } from '../../redux/action';
 import { getYear } from '../helper';
 import { Link, useNavigate } from 'react-router-dom';
 import { useToast } from '@chakra-ui/react';
+import { get_certification_movie, get_certification_tv, get_movie_cast, get_movieDetail, get_tv_cast, get_tvseriesDetail } from '../../redux/thunks/mediaThunks';
+import { add_to_bookmark, delete_bookmark, get_bookmark } from '../../redux/thunks/bookmarkThunks';
+import { setActive } from '../../redux/slices/uiSlice';
 
 const Recommended = () => {
     const navigate = useNavigate()
     const dispatch = useDispatch()
-    const recommended = useSelector(state => state.recommended)
-    const certificationMap = useSelector(state => state.certificationMap)
-    const tv_cert = useSelector(state => state.tv_cert)
-    const bkmark = useSelector(state => state.bookmark)
-    const added = useSelector(state => state.added)
-    const delete_bkmark = useSelector(state => state.delete_bookmark)
+    const recommended = useSelector(state => state.media.recommended)
+    const certificationMap = useSelector(state => state.media.certificationMap)
+    const tv_cert = useSelector(state => state.media.tv_cert)
+    const bkmark = useSelector(state => state.bookmark.bookmark)
+    const added = useSelector(state => state.bookmark.added)
+    const delete_bkmark = useSelector(state => state.bookmark.delete_bookmark)
     const [bookmarkTriggeredHere, setBookmarkTriggeredHere] = useState(false);
     const toast = useToast()
 
@@ -121,7 +124,7 @@ const Recommended = () => {
             //state to keep track of which screen has added bookmark
             setBookmarkTriggeredHere(true);
             //if bookmark present - delete or add bookmark
-            bookmark.find(e => e.id == val.id) ? (dispatch(delete_bookmark(val.id, localStorage.getItem("user_id")))) :
+            bookmark.find(e => e.id == val.id) ? (dispatch(delete_bookmark({id:val.id, user_id:localStorage.getItem("user_id")}))) :
                 (dispatch(add_to_bookmark({ ...val, user_id: localStorage.getItem("user_id") })))
         } else {
             dispatch(setActive(''))

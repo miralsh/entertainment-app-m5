@@ -3,21 +3,24 @@ import { useDispatch, useSelector } from 'react-redux';
 import { img_url } from '../../constants';
 import { RiBookmarkFill, RiBookmarkLine, RiFilmFill } from 'react-icons/ri';
 import { TbDeviceTvOld } from 'react-icons/tb';
-import { add_to_bookmark, delete_bookmark, get_bookmark, get_certification_movie, get_certification_tv, get_movie_cast, get_movieDetail, get_tv_cast, get_tvseriesDetail, setActive } from '../../redux/action';
+//import { add_to_bookmark, delete_bookmark, get_bookmark, get_certification_movie, get_certification_tv, get_movie_cast, get_movieDetail, get_tv_cast, get_tvseriesDetail, setActive } from '../../redux/action';
 import { useNavigate } from 'react-router-dom';
 import { getYear } from '../helper';
 import { useToast } from '@chakra-ui/react';
 import { useRef } from 'react';
 import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
+import { add_to_bookmark, delete_bookmark, get_bookmark } from '../../redux/thunks/bookmarkThunks';
+import { setActive } from '../../redux/slices/uiSlice';
+import { get_certification_movie, get_certification_tv, get_movie_cast, get_movieDetail, get_tv_cast, get_tvseriesDetail } from '../../redux/thunks/mediaThunks';
 const Trending = () => {
     const toast = useToast()
     const dispatch = useDispatch()
-    const trending = useSelector(state => state.trending)
-    const certificationMap = useSelector(state => state.certificationMap)
-    const tv_cert = useSelector(state => state.tv_cert)
-    const bkmark = useSelector(state => state.bookmark)
-    const added = useSelector(state => state.added)
-    const delete_bkmark = useSelector(state => state.delete_bookmark)
+    const trending = useSelector(state => state.media.trending)
+    const certificationMap = useSelector(state => state.media.certificationMap)
+    const tv_cert = useSelector(state => state.media.tv_cert)
+    const bkmark = useSelector(state => state.bookmark.bookmark)
+    const added = useSelector(state => state.bookmark.added)
+    const delete_bkmark = useSelector(state => state.bookmark.delete_bookmark)
     const [bookmarkTriggeredHere, setBookmarkTriggeredHere] = useState(false);
     const [bookmark, setBookMark] = useState([])
     const navigate = useNavigate()
@@ -101,7 +104,7 @@ const Trending = () => {
             //state to keep track of which screen has added bookmark
             setBookmarkTriggeredHere(true);
             //if bookmark present - delete or add bookmark
-            bookmark.find(e => e.id == val.id) ? (dispatch(delete_bookmark(val.id, localStorage.getItem("user_id")))) :
+            bookmark.find(e => e.id == val.id) ? (dispatch(delete_bookmark({id:val.id,user_id: localStorage.getItem("user_id")}))) :
                 (dispatch(add_to_bookmark({ ...val, user_id: localStorage.getItem("user_id") })))
         } else {
             toast({
@@ -121,7 +124,7 @@ const Trending = () => {
         const uniqueIdsToFetchTv = [];
 
         // get certification for each movie and tv series
-        trending.forEach((element) => {
+        trending?.forEach((element) => {
             if (element.media_type === 'movie') {
                 // check if certification is present
                 if (!certificationMap[element.id]) {
@@ -187,11 +190,11 @@ const Trending = () => {
                 ref={scrollRef}
                 className="w-full overflow-x-auto whitespace-nowrap scrollbar-hide scroll-smooth px-10"
             >
-                {trending.map((element, index) => (
+                {trending?.map((element, index) => (
                     // img 
                     <div
                         key={index}
-                        className="inline-block w-64 sm:w-72 md:w-80 lg:w-80 mr-4 bg-cover bg-no-repeat rounded-xl h-45 cursor-pointer
+                        className="relative inline-block w-64 sm:w-72 md:w-80 lg:w-80 mr-4 bg-cover bg-no-repeat rounded-xl h-45 cursor-pointer
                          hover:shadow-sm hover:shadow-white mb-2"
                         style={{ backgroundImage: `url(${element.backdrop_path != null ? img_url + element.backdrop_path : 'https://images.pexels.com/photos/159868/lost-cat-tree-sign-fun-159868.jpeg'})` }}
                         onClick={() => onSelect(element.id, element.media_type)}
@@ -206,10 +209,10 @@ const Trending = () => {
 
                             </div>
                         </div>
-                            {/* content */}
-                        <div className='flex items-end h-[75%]' >
+                        {/* content */}
+                        <div className='absolute bottom-0  ' >
 
-                            <div className='flex flex-col'>
+                            <div className='flex flex-col '>
                                 <div className='flex items-center'>
                                     <p className='flex  items-center text-gray-200 py-1 ps-4 pe-2 text-sm'>{getYear(element.release_date)}{getYear(element.first_air_date)}</p>
                                     <hr className=" w-1 border-white border-dotted border-t-4" />
@@ -217,7 +220,14 @@ const Trending = () => {
                                     <hr className=" w-1 border-white border-dotted border-t-4 mx-1" />
                                     <p className='flex items-center px-2 text-sm text-gray-200 capitalize'>{element.media_type == 'movie' ? certificationMap[element.id] || 'Loading...' : tv_cert[element.id] || 'Loading...'}</p>
                                 </div>
-                                <p className='flex lg:text-xl xl:text-xl md:text-lg items-center text-white w-[100%] mx-auto font-medium px-4 pb-4 line-clamp-1'>{element.title}{element.name}</p>
+                                <p className='flex  items-center  w-[75%]  text-white  font-medium mx-4 pb-4 lg:text-xl xl:text-xl md:text-lg overflow-hidden text-ellipsis whitespace-nowrap  '
+                                    style={{
+                                        overflow: 'hidden',
+                                        display: '-webkit-box',
+                                        WebkitBoxOrient: 'vertical',
+                                        WebkitLineClamp: 1
+                                    }}
+                                >{element.title}{element.name}</p>
                             </div>
                         </div>
 

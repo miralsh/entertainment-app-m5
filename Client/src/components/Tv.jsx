@@ -3,7 +3,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import { img_url } from '../../constants';
 import { RiBookmarkFill, RiBookmarkLine } from 'react-icons/ri';
 import { TbDeviceTvOld } from "react-icons/tb";
-import { get_certification_tv, get_bookmark, add_to_bookmark, get_tvseriesDetail, get_tv_cast, delete_bookmark, get_tvseries, clear_search_list, search_tv, setActive } from '../../redux/action';
+import { get_certification_tv,  get_tvseriesDetail, get_tv_cast,  get_tvseries, search_tv } from '../../redux/thunks/mediaThunks' 
+import { clearMediaSearchList } from '../../redux/slices/mediaSlice';
+import { setActive } from '../../redux/slices/uiSlice';
+import {get_bookmark, add_to_bookmark,delete_bookmark} from '../../redux/thunks/bookmarkThunks'
 import { getYear } from '../helper';
 import { useNavigate } from 'react-router-dom';
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
@@ -11,20 +14,20 @@ import { useToast } from '@chakra-ui/react';
 const Tv = ({ val }) => {
     const toast = useToast()
     const dispatch = useDispatch()
-    const searched_tv = useSelector(state => state.search_tv.results)
-    const tv_series = useSelector(state => state.tv_series.results)
-    const pages = useSelector(state => state.tv_series.total_pages)
-    const search_pages = useSelector(state => state.search_tv.total_pages)
-    const tv_cert = useSelector(state => state.tv_cert)
-    const bkmark = useSelector(state => state.bookmark)
-    const added = useSelector(state => state.added)
-    const delete_bkmark = useSelector(state => state.delete_bookmark)
+    const searched_tv = useSelector(state => state.media.search_tv.results)
+    const tv_series = useSelector(state => state.media.tv_series.results)
+    const pages = useSelector(state => state.media.tv_series.total_pages)
+    const search_pages = useSelector(state => state.media.search_tv.total_pages)
+    const tv_cert = useSelector(state => state.media.tv_cert)
+    const bkmark = useSelector(state => state.bookmark.bookmark)
+    const added = useSelector(state => state.bookmark.added)
+    const delete_bkmark = useSelector(state => state.bookmark.delete_bookmark)
     const [currPage, setCurrPage] = useState(1)
     const navigate = useNavigate()
     const [bookmarkTriggeredHere, setBookmarkTriggeredHere] = useState(false);
     // clear search list on page mount
     useEffect(() => {
-        dispatch(clear_search_list())
+        dispatch(clearMediaSearchList())
     }, [])
     const [bookmark, setBookMark] = useState([])
     // on add bookmark, call get bookmark and display toast message
@@ -89,7 +92,7 @@ const Tv = ({ val }) => {
             //state to keep track of which screen has added bookmark
             setBookmarkTriggeredHere(true)
             //if bookmark present - delete or add bookmark
-            bookmark.find(e => e.id == val.id) ? (dispatch(delete_bookmark(val.id, localStorage.getItem("user_id")))) :
+            bookmark.find(e => e.id == val.id) ? (dispatch(delete_bookmark({id:val.id, user_id:localStorage.getItem("user_id")}))) :
                 dispatch(add_to_bookmark({ ...val, media_type: "tv", user_id: localStorage.getItem("user_id") }))
         } else {
             dispatch(setActive(''))
@@ -112,6 +115,7 @@ const Tv = ({ val }) => {
             .map(show => show.id);
         // fetch tv certification
         missingCertIds.forEach(id => {
+            console.log("tv id" +id)
             dispatch(get_certification_tv(id));
         });
     }, [tv_series, searched_tv, tv_cert]);
@@ -133,7 +137,7 @@ const Tv = ({ val }) => {
 
         setCurrPage(pg)
         dispatch(get_tvseries(pg))
-        dispatch(search_tv(val, pg))
+        dispatch(search_tv({val, pg}))
     }
     // on prev click
     const onPrevious = () => {
@@ -143,10 +147,10 @@ const Tv = ({ val }) => {
         } else {
             pg = currPage
         }
-
+        
         setCurrPage(pg)
         dispatch(get_tvseries(pg))
-        dispatch(search_tv(val, pg))
+        dispatch(search_tv({val, pg}))
     }
     // render search list or tv series list
     const listToRender = searched_tv && searched_tv.length > 0 ? searched_tv : tv_series

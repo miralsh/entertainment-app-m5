@@ -6,8 +6,8 @@ import { FaImdb } from "react-icons/fa"
 import { getYear } from '../../helper';
 import { Link } from 'react-router-dom';
 const index = () => {
-    const movieDetail = useSelector(state => state.movieDetail)
-    const cast = useSelector(state => state.movie_cast)
+    const movieDetail = useSelector(state => state.media.movieDetail)
+    const cast = useSelector(state => state.media.movie_cast)
     const [mDetail, setMDetail] = useState({})
     const [mCast, setMCast] = useState([])
     // get movie details

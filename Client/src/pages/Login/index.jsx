@@ -2,19 +2,21 @@ import { useEffect, useState } from "react";
 import { MdMovie } from "react-icons/md";
 import { emailRegex, pwRegex } from "../../helper";
 import { useDispatch, useSelector } from "react-redux";
-import { get_bookmark, get_user, login, setActive } from "../../../redux/action";
+import { get_user, login } from "../../../redux/thunks/authThunks";
+import { get_bookmark } from "../../../redux/thunks/bookmarkThunks";
+import { setActive } from "../../../redux/slices/uiSlice";
 import { useNavigate } from "react-router-dom";
 import { useToast } from "@chakra-ui/react";
 export default function Login() {
     const toast = useToast()
     const dispatch = useDispatch()
-    const login_status = useSelector(state => state.login)
-    const login_err = useSelector(state => state.login_error)
+    const login_status = useSelector(state => state.auth.login)
+    const login_err = useSelector(state => state.auth.login_error)
     const [error, setError] = useState({ emailError: '', passwordError: '', confirmPwError: '' })
     const [valid, setValid] = useState(false)
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
-    const user = useSelector(state => state.user)
+    const user = useSelector(state => state.auth.user)
     const navigate = useNavigate()
     useEffect(() => {
         console.log("user "+JSON.stringify(user))

@@ -2,14 +2,15 @@ import { useEffect, useState } from "react";
 import { MdMovie } from "react-icons/md";
 import { emailRegex, pwRegex } from "../../helper";
 import { useDispatch, useSelector } from "react-redux";
-import { setActive, signup } from "../../../redux/action";
+import { setActive } from "../../../redux/slices/uiSlice";
+import { signup } from "../../../redux/thunks/authThunks";
 import { useNavigate } from "react-router-dom";
 import { useToast } from '@chakra-ui/react'
 export default function Signup() {
     const dispatch = useDispatch()
     const toast = useToast()
-    const status = useSelector(state => state.signup)
-    const signup_err = useSelector(state => state.signup_error)
+    const status = useSelector(state => state.auth.signup)
+    const signup_err = useSelector(state => state.auth.signup_error)
     const [error, setError] = useState({ emailError: '', passwordError: '', confirmPwError: '' })
     const [valid, setValid] = useState(false)
     const [email, setEmail] = useState('')

@@ -1,10 +1,11 @@
 import { MdMovie } from "react-icons/md";
 import { RiLayoutGridFill, RiFilmFill, RiBookmarkFill } from "react-icons/ri";
 import { TbDeviceTvOld } from "react-icons/tb";
-import img from "../assets/react.svg"
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { get_bookmark, get_movies, get_tvseries, setActive } from "../../redux/action";
+import { setActive } from "../../redux/slices/uiSlice";
+import { get_movies,get_tvseries } from "../../redux/thunks/mediaThunks";
+import { get_bookmark } from "../../redux/thunks/bookmarkThunks";
 import { Link, useNavigate } from "react-router-dom";
 import { LiaSignOutAltSolid } from "react-icons/lia";
 import { useToast } from "@chakra-ui/react";
@@ -13,7 +14,7 @@ export default function Navbar() {
     const dispatch = useDispatch()
     const toast = useToast()
     const navigate = useNavigate()
-    const activepath = useSelector(state => state.active)
+    const activepath = useSelector(state => state.ui.active)
     const [activeP, setActiveP] = useState('Home');
     // tracks active path to highlight the icon
     useEffect(() => {

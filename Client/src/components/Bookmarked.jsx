@@ -3,25 +3,28 @@ import { useDispatch, useSelector } from 'react-redux';
 import { img_url } from '../../constants';
 import { RiBookmarkFill, RiBookmarkLine, RiFilmFill } from 'react-icons/ri';
 import { TbDeviceTvOld } from 'react-icons/tb';
-import { add_to_bookmark, clear_search_list, delete_bookmark, get_bookmark, get_certification_movie, get_certification_tv, get_movie_cast, get_movieDetail, get_tv_cast, get_tvseriesDetail, setActive } from '../../redux/action';
+import { add_to_bookmark, delete_bookmark, get_bookmark } from '../../redux/thunks/bookmarkThunks';
+import { setActive } from '../../redux/slices/uiSlice';
+import { get_certification_movie, get_certification_tv, get_movie_cast, get_movieDetail, get_tv_cast, get_tvseriesDetail} from '../../redux/thunks/mediaThunks'
+import { clearBkmarkSearchList } from '../../redux/slices/bookmarkSlice';
 import { getYear } from '../helper';
 import { useNavigate } from 'react-router-dom';
 import { useToast } from '@chakra-ui/react';
 const Bookmarked = () => {
     const dispatch = useDispatch()
-    const bmark = useSelector(state => state.bookmark)
-    const search_bkmark = useSelector(state => state.search_bkmark)
-    const certificationMap = useSelector(state => state.certificationMap)
-    const tv_cert = useSelector(state => state.tv_cert)
-    const bkmark = useSelector(state => state.bookmark)
-    const added = useSelector(state => state.added)
-    const delete_bkmark = useSelector(state => state.delete_bookmark)
+    const bmark = useSelector(state => state.bookmark.bookmark)
+    const search_bkmark = useSelector(state => state.bookmark.search_bkmark)
+    const certificationMap = useSelector(state => state.media.certificationMap)
+    const tv_cert = useSelector(state => state.media.tv_cert)
+    const bkmark = useSelector(state => state.bookmark.bookmark)
+    const added = useSelector(state => state.bookmark.added)
+    const delete_bkmark = useSelector(state => state.bookmark.delete_bookmark)
     const navigate = useNavigate()
     const toast = useToast()
     const [bookmarkTriggeredHere, setBookmarkTriggeredHere] = useState(false)
     // clear search list on page mount
     useEffect(() => {
-        dispatch(clear_search_list())
+        dispatch(clearBkmarkSearchList())
     }, [])
 
     // fetch bookmarks
@@ -86,7 +89,7 @@ const Bookmarked = () => {
         if (localStorage.getItem("accesstoken") != null) {
             setBookmarkTriggeredHere(true)
             // bookmark present then delete or add bookmark
-            bookmark.find(e => e.id == val.id) ? (dispatch(delete_bookmark(val.id, localStorage.getItem("user_id")))) :
+            bookmark.find(e => e.id == val.id) ? (dispatch(delete_bookmark({id:val.id, user_id:localStorage.getItem("user_id")}))) :
                 dispatch(add_to_bookmark({ ...val, user_id: localStorage.getItem("user_id") }))
         } else {
             dispatch(setActive(''))

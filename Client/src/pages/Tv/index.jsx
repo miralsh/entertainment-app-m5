@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import { LuSearch } from "react-icons/lu";
 import Tv from "../../components/Tv";
 import { useDispatch } from 'react-redux';
-import { clear_search_list, search_tv } from '../../../redux/action';
+import { clearMediaSearchList } from '../../../redux/slices/mediaSlice';
+import { search_tv } from '../../../redux/thunks/mediaThunks';
 const index = () => {
     const [val, setVal] = useState('')
     const dispatch = useDispatch()
@@ -15,10 +16,10 @@ const index = () => {
         debounceTimer = setTimeout(() => {
             // clear list on value empty
             if (e.target.value.trim() == "") {
-                dispatch(clear_search_list())
+                dispatch(clearMediaSearchList())
             } else {
                 // call search tv series api
-                dispatch(search_tv(e.target.value, 1))
+                dispatch(search_tv({tv:e.target.value,pg: 1}))
             }
         }, 500);
     }

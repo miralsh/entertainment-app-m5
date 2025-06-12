@@ -3,25 +3,28 @@ import Trending from "../../components/Trending";
 import Recommended from "../../components/Recommended";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
-import { clear_search_list, searchAll, setActive } from "../../../redux/action";
 import { img_url } from '../../../constants';
 import { RiBookmarkFill, RiBookmarkLine, RiFilmFill } from 'react-icons/ri';
 import { TbDeviceTvOld } from 'react-icons/tb';
-import { add_to_bookmark, delete_bookmark, get_bookmark, get_certification_movie, get_certification_tv, get_movie_cast, get_movieDetail, get_tv_cast, get_tvseriesDetail } from '../../../redux/action';
+//import { add_to_bookmark, delete_bookmark, get_bookmark, get_certification_movie, get_certification_tv, get_movie_cast, get_movieDetail, get_tv_cast, get_tvseriesDetail } from '../../../redux/action';
 import { getYear } from '../../helper';
 import { useNavigate } from 'react-router-dom';
 import { useToast } from '@chakra-ui/react';
+import { get_certification_movie, get_certification_tv, get_movie_cast, get_movieDetail, get_tv_cast, get_tvseriesDetail } from "../../../redux/thunks/mediaThunks";
+import { add_to_bookmark, delete_bookmark, get_bookmark } from "../../../redux/thunks/bookmarkThunks";
+import { setActive } from "../../../redux/slices/uiSlice";
+import { clearMediaSearchList, searchAll } from "../../../redux/slices/mediaSlice";
 export default function Home() {
   const navigate = useNavigate()
   const dispatch = useDispatch()
-  const certificationMap = useSelector(state => state.certificationMap)
-  const tv_cert = useSelector(state => state.tv_cert)
-  const bkmark = useSelector(state => state.bookmark)
-  const added = useSelector(state => state.added)
-  const delete_bkmark = useSelector(state => state.delete_bookmark)
+  const certificationMap = useSelector(state => state.media.certificationMap)
+  const tv_cert = useSelector(state => state.media.tv_cert)
+  const bkmark = useSelector(state => state.bookmark.bookmark)
+  const added = useSelector(state => state.bookmark.added)
+  const delete_bkmark = useSelector(state => state.bookmark.delete_bookmark)
   const [bookmarkTriggeredHere, setBookmarkTriggeredHere] = useState(false);
   const [val, setVal] = useState('')
-  const searchResults = useSelector(state => state.search_all)
+  const searchResults = useSelector(state => state.media.search_all)
   const toast = useToast()
 
   // fetching the certifications of bookmarked TV Series and movies
@@ -116,7 +119,7 @@ export default function Home() {
     if (localStorage.getItem("accesstoken") != null) {
       setBookmarkTriggeredHere(true);
       // bookmark present then delete or add bookmark
-      bookmark.find(e => e.id == val.id) ? (dispatch(delete_bookmark(val.id, localStorage.getItem("user_id")))) :
+      bookmark.find(e => e.id == val.id) ? (dispatch(delete_bookmark({id:val.id, user_id:localStorage.getItem("user_id")}))) :
         (dispatch(add_to_bookmark({ ...val, user_id: localStorage.getItem("user_id") })))
     } else {
       dispatch(setActive(''))
@@ -158,13 +161,13 @@ export default function Home() {
 
   //clear search list on page mount
   useEffect(() => {
-    dispatch(clear_search_list())
+    dispatch(clearMediaSearchList())
   }, [])
 
   //clear search list on empty input
   useEffect(() => {
     if (val == '') {
-      dispatch(clear_search_list())
+      dispatch(clearMediaSearchList())
     }
   }, [val])
   return (

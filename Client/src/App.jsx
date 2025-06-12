@@ -9,10 +9,11 @@ import Movies from './pages/Movies'
 import MovieDetail from './pages/MovieDetail'
 import TvSeriesDetail from './pages/TvSeriesDetail'
 import Bookmark from './pages/Bookmark'
-import { get_bookmark, get_recommended, get_trending_list } from '../redux/action'
 import { useDispatch } from 'react-redux';
 import { useEffect } from 'react'
 import Tv from './pages/Tv'
+import { get_recommended, get_trending_list } from '../redux/thunks/mediaThunks'
+import { get_bookmark } from '../redux/thunks/bookmarkThunks'
 function App() {
   const dispatch = useDispatch()
   //loading the home page data - trending, recommended and bookmarks if logged in

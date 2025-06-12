@@ -2,7 +2,8 @@
 import { LuSearch } from "react-icons/lu";
 import Bookmarked from "../../components/Bookmarked"
 import { useDispatch } from "react-redux";
-import { clear_search_list, searchBookmark } from "../../../redux/action";
+import { clearBkmarkSearchList } from "../../../redux/slices/bookmarkSlice";
+import { searchBookmark } from "../../../redux/slices/bookmarkSlice";
 import { useState } from "react";
 import { useEffect } from "react";
 const index = () => {
@@ -21,7 +22,7 @@ const index = () => {
     //clear search list on empty input
       useEffect(() => {
         if (val == '') {
-          dispatch(clear_search_list())
+          dispatch(clearBkmarkSearchList())
         }
       }, [val])
     return (

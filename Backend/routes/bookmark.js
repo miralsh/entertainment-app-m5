@@ -47,24 +47,23 @@ const deleteBookmark = async (req, res) => {
         console.log(id + " " + req.query.user_id)
 
         // find bookmark with that id
-        const bookmark = await Bookmark.findOne({ id: parseInt(id) });
+        const bookmark = await Bookmark.find({ id: parseInt(id) });
         if (!bookmark) {
             res.status(404).json({ error: "Bookmark not found" });
         }
         console.log(bookmark+" "+("user_id" in bookmark))
 
         // confirm the user_id present in that bookmark
-        if ("user_id" in bookmark) {
-            if (bookmark.user_id.toString() !== req.query.user_id) {
+        const bkmarkavailable = bookmark.find(e=>e.user_id==req.query.user_id)
+        
+            if (!bkmarkavailable) {
                 return res.status(403).json({ error: "User don't have permission to delete other bookmarks" });
             }
 
             // delete the found bookmark
-            await Bookmark.deleteOne({ id: parseInt(id), user_id: String(req.query.user_id) })
+            await bkmarkavailable.deleteOne({ id: parseInt(id), user_id: String(req.query.user_id) })
             res.status(200).json(bookmark)
-        } else {
-            return res.status(403).json({ error: "User don't have permission to delete other bookmarks" });
-        }
+       
 
     } catch (err) {
         res.status(500).json({ error: err.message })
