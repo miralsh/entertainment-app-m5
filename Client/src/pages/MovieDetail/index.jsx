@@ -29,9 +29,9 @@ const index = () => {
                             {mDetail.popularity <= 10 ? (<><FaRegStarHalfStroke /><FaRegStar /><FaRegStar /><FaRegStar /><FaRegStar /></>) : mDetail.popularity > 10 && mDetail.popularity <= 20 ? (<><FaStar /><FaRegStar /><FaRegStar /><FaRegStar /><FaRegStar /></>) :
                                 mDetail.popularity > 20 && mDetail.popularity <= 30 ? (<><FaStar /><FaRegStarHalfStroke /><FaRegStar /><FaRegStar /><FaRegStar /></>) : mDetail.popularity > 30 && mDetail.popularity <= 40 ? (<><FaStar /><FaStar /><FaRegStar /><FaRegStar /><FaRegStar /></>) : mDetail.popularity > 40 && mDetail.popularity <= 50 ? (<><FaStar /><FaStar /><FaRegStarHalfStroke /><FaRegStar /><FaRegStar /></>) : mDetail.popularity > 50 && mDetail.popularity <= 60 ? (<><FaStar /><FaStar /><FaStar /><FaRegStar /><FaRegStar /></>) : mDetail.popularity > 60 && mDetail.popularity <= 70 ? (<><FaStar /><FaStar /><FaStar /><FaRegStarHalfStroke /><FaRegStar /></>) : mDetail.popularity > 70 && mDetail.popularity <= 80 ? (<><FaStar /><FaStar /><FaStar /><FaStar /><FaRegStar /></>) : mDetail.popularity > 80 && mDetail.popularity <= 90 ? (<><FaStar /><FaStar /><FaStar /><FaStar /><FaRegStarHalfStroke /></>) : (<><FaStar /><FaStar /><FaStar /><FaStar /><FaStar /></>)}
                         </div>
-                        <p className='text-white mx-3 text-xl'>( {mDetail.vote_count} votes )</p>
+                        <p className='text-white mx-3 md:text-xl'>( {mDetail.vote_count} votes )</p>
                     </div>
-                    <div className='grid grid-cols-4 gap-x-16 gap-y-2  font-bold my-4'>
+                    <div className='grid grid-cols-4 md:gap-x-16 gap-y-2  font-bold my-4 text-sm md:text-base'>
                         <p className='text-[#87898E] w-100'>Length</p>
                         <p className='text-[#87898E]'>Language</p>
                         <p className='text-[#87898E]'>Year</p>
@@ -61,8 +61,8 @@ const index = () => {
                         </div>
                         {/* links */}
                         <div className='flex font-bold mt-8'>
-                            <Link to={mDetail.homepage}><button className='flex items-center cursor-pointer text-white bg-gray-500 rounded px-6 py-2 text-sm me-4 ' >Website<FaLink className='ms-4' /></button></Link>
-                            <Link to={'https://www.imdb.com/title/' + mDetail.imdb_id}><button className='flex items-center cursor-pointer text-white bg-gray-500 rounded px-6 py-2 text-sm'>IMDB<FaImdb className='ms-4 '
+                            <Link to={mDetail.homepage}><button className='flex items-center cursor-pointer text-white bg-gray-500 rounded md:px-6 px-2 py-2 text-sm me-4 ' >Website<FaLink className='ms-4' /></button></Link>
+                            <Link to={'https://www.imdb.com/title/' + mDetail.imdb_id}><button className='flex items-center cursor-pointer text-white bg-gray-500 rounded md:px-6 px-2 py-2 text-sm'>IMDB<FaImdb className='ms-4 '
                                 style={{ color: "transparent", fill: "white" }} /></button></Link>
                         </div>
                     </div>

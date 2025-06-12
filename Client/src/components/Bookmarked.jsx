@@ -5,7 +5,7 @@ import { RiBookmarkFill, RiBookmarkLine, RiFilmFill } from 'react-icons/ri';
 import { TbDeviceTvOld } from 'react-icons/tb';
 import { add_to_bookmark, delete_bookmark, get_bookmark } from '../../redux/thunks/bookmarkThunks';
 import { setActive } from '../../redux/slices/uiSlice';
-import { get_certification_movie, get_certification_tv, get_movie_cast, get_movieDetail, get_tv_cast, get_tvseriesDetail} from '../../redux/thunks/mediaThunks'
+import { get_certification_movie, get_certification_tv, get_movie_cast, get_movieDetail, get_tv_cast, get_tvseriesDetail } from '../../redux/thunks/mediaThunks'
 import { clearBkmarkSearchList } from '../../redux/slices/bookmarkSlice';
 import { getYear } from '../helper';
 import { useNavigate } from 'react-router-dom';
@@ -89,7 +89,7 @@ const Bookmarked = () => {
         if (localStorage.getItem("accesstoken") != null) {
             setBookmarkTriggeredHere(true)
             // bookmark present then delete or add bookmark
-            bookmark.find(e => e.id == val.id) ? (dispatch(delete_bookmark({id:val.id, user_id:localStorage.getItem("user_id")}))) :
+            bookmark.find(e => e.id == val.id) ? (dispatch(delete_bookmark({ id: val.id, user_id: localStorage.getItem("user_id") }))) :
                 dispatch(add_to_bookmark({ ...val, user_id: localStorage.getItem("user_id") }))
         } else {
             dispatch(setActive(''))
@@ -155,7 +155,7 @@ const Bookmarked = () => {
     const listToRender = search_bkmark && search_bkmark.length > 0 ? search_bkmark : bkmark
     return (
         <div className='w-full lg:mx-6 '>
-            <div className='grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-6'>
+            <div className='grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4  md:gap-4 gap-1 mt-6'>
                 {listToRender ? listToRender.filter(e => e.media_type == "movie").length != 0 ? listToRender.filter(e => e.media_type == "movie").map((element, index) => (
                     <div>
                         {/* movie poster img */}
@@ -171,19 +171,25 @@ const Bookmarked = () => {
                         {/* content */}
                         <div className='flex flex-col'>
                             <div className='flex items-center'>
-                                <p className='flex  items-center text-gray-200 py-1 ps-4 pe-2 text-sm cursor-pointer hover:shadow-sm hover:shadow-white'>{getYear(element.release_date)}</p>
+                                <p className='flex  items-center text-gray-200 py-1 md:ps-4 md:pe-2 text-xs md:text-sm px-1 '>{getYear(element.release_date)}</p>
                                 <hr className=" w-1 border-white border-dotted border-t-4" />
-                                <p className='flex items-center px-2 text-sm text-gray-200 capitalize'><RiFilmFill className='px-1' size={26} style={{ color: 'white' }} /> Movie</p>
+                                <p className='flex items-center md:px-2 text-xs md:text-sm text-gray-200 capitalize'><RiFilmFill className='px-1' size={26} style={{ color: 'white' }} /> Movie</p>
                                 <hr className=" w-1 border-white border-dotted border-t-4 mx-1" />
-                                <p className='flex items-center px-2 text-sm text-gray-200 capitalize'>{certificationMap[element.id] || 'Loading...'}</p>
+                                <p className='flex items-center md:px-2 text-xs md:text-sm text-gray-200 capitalize'>{certificationMap[element.id] || 'Loading...'}</p>
                             </div>
-                            <p className='flex text-xl items-center text-white w-[100%] mx-auto font-medium px-4 pb-4 line-clamp-2'>{element.title}{element.name}</p>
+                            <p className='flex  md:text-xl items-center text-white w-[95%]  font-medium md:px-4 pb-4 px-1 overflow-hidden text-ellipsis whitespace-nowrap' style={{
+                                overflow: 'hidden',
+                                display: '-webkit-box',
+                                WebkitBoxOrient: 'vertical',
+                                WebkitLineClamp: 2
+                            }}>
+                                {element.title}{element.name}</p>
                         </div>
                     </div>
                 )) : <p className='text-gray-500  my-4 text-xl'>No movies in bookmark</p> : <>Loading...</>}
             </div>
             <h2 className="text-white text-2xl mt-6">Bookmarked TV Series</h2>
-            <div className='grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-6 '>
+            <div className='grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 md:gap-4 gap-1 mt-6 '>
                 {/* display bookmarked tv series content */}
                 {listToRender ? listToRender.filter(e => e.media_type == "tv").length != 0 ? listToRender.filter(e => e.media_type == "tv").map((element, index) => (
                     <div>
@@ -200,14 +206,19 @@ const Bookmarked = () => {
                         {/* content */}
                         <div className='flex flex-col'>
                             <div className='flex items-center'>
-                                <p className='flex  items-center text-gray-200 py-1 ps-4 pe-2 text-sm'>{getYear(element.first_air_date)}</p>
+                                <p className='flex  items-center text-gray-200 py-1 md:ps-4 md:pe-2 text-xs md:text-sm px-1 '>{getYear(element.first_air_date)}</p>
                                 <hr className=" w-1 border-white border-dotted border-t-4" />
-                                <p className='flex items-center px-2 text-sm text-gray-200 capitalize'><TbDeviceTvOld className='px-1' size={26} style={{ color: 'white' }} />Tv</p>
+                                <p className='flex items-center md:px-2 text-xs md:text-sm text-gray-200 capitalize'><TbDeviceTvOld className='px-1' size={26} style={{ color: 'white' }} />Tv</p>
                                 <hr className=" w-1 border-white border-dotted border-t-4 mx-1" />
-                                <p className='flex items-center px-2 text-sm text-gray-200 capitalize'>{tv_cert[element.id] || 'Loading...'}</p>
+                                <p className='flex items-center md:px-2 text-xs md:text-sm text-gray-200 capitalize'>{tv_cert[element.id] || 'Loading...'}</p>
                             </div>
-                            <p className='flex text-xl items-center text-white w-[100%] mx-auto font-medium px-4 pb-4 line-clamp-2'>{element.title}{element.name}</p>
-                        </div>
+ <p className='flex  md:text-xl items-center text-white w-[95%]  font-medium md:px-4 pb-4 px-1 overflow-hidden text-ellipsis whitespace-nowrap' style={{
+                                        overflow: 'hidden',
+                                        display: '-webkit-box',
+                                        WebkitBoxOrient: 'vertical',
+                                        WebkitLineClamp: 2
+                                    }}>
+                                        {element.title}{element.name}</p>                        </div>
                     </div>
                 )) : <p className='text-gray-500 my-4 text-xl  '>No TV series in bookmark</p> : <>Loading...</>}
             </div>

@@ -96,7 +96,7 @@ const Movies = ({ val }) => {
             //state to keep track of which screen has added bookmark
             setBookmarkTriggeredHere(true);
             //if bookmark present - delete or add bookmark
-            bookmark.find(e => e.id == val.id) ? (dispatch(delete_bookmark({id:val.id,user_id:localStorage.getItem("user_id")}))) :
+            bookmark.find(e => e.id == val.id) ? (dispatch(delete_bookmark({ id: val.id, user_id: localStorage.getItem("user_id") }))) :
                 dispatch(add_to_bookmark({ ...val, media_type: "movie", user_id: localStorage.getItem("user_id") }))
         } else {
             dispatch(setActive(''))
@@ -147,7 +147,7 @@ const Movies = ({ val }) => {
 
         setCurrPage(pg)
         dispatch(get_movies(pg))
-        dispatch(search_movie({val, pg}))
+        dispatch(search_movie({ val, pg }))
     }
     // on prev click
     const onPrevious = () => {
@@ -160,13 +160,13 @@ const Movies = ({ val }) => {
 
         setCurrPage(pg)
         dispatch(get_movies(pg))
-        dispatch(search_movie({val, pg}))
+        dispatch(search_movie({ val, pg }))
     }
     // render search list or movies list
     const listToRender = searched_movies && searched_movies.length > 0 ? searched_movies : movies
     return (
         <div className='w-full lg:mx-6 mx-2'>
-            <div className='grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-6'>
+            <div className='grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 md:gap-4 gap-1 mt-6'>
                 {listToRender?.map((element, index) => (
                     <div key={index}>
                         {/* img */}
@@ -185,13 +185,19 @@ const Movies = ({ val }) => {
                         {/* content         */}
                         <div className='flex flex-col'>
                             <div className='flex items-center'>
-                                <p className='flex  items-center text-gray-200  py-1 md:ps-4 pe-2 text-sm'>{getYear(element.release_date)}</p>
+                                <p className='flex  items-center text-gray-200  py-1 md:ps-4 md:pe-2 text-xs md:text-sm px-1'>{getYear(element.release_date)}</p>
                                 <hr className=" w-1 border-white border-dotted border-t-4" />
-                                <p className='flex items-center md:px-2 px-1 text-sm text-gray-200 capitalize'><RiFilmFill className='px-1' size={26} style={{ color: 'white' }} /> Movie</p>
+                                <p className='flex items-center md:px-2 text-xs md:text-sm px-1 text-gray-200 capitalize'><RiFilmFill className='px-1' size={26} style={{ color: 'white' }} /> Movie</p>
                                 <hr className=" w-1 border-white border-dotted border-t-4 mx-1" />
-                                <p className='flex items-center md:px-2 px-1 text-sm text-gray-200 capitalize'>{certificationMap[element.id] || 'Loading...'}</p>
+                                <p className='flex items-center md:px-2 text-xs md:text-sm px-1 text-gray-200 capitalize'>{certificationMap[element.id] || 'Loading...'}</p>
                             </div>
-                            <p className='flex md:text-xl items-center text-white w-[100%] mx-auto font-medium md:px-4 pb-4 line-clamp-2'>{element.title}{element.name}</p>
+                            <p className='flex  md:text-xl items-center text-white w-[95%]  font-medium md:px-4 pb-4 px-1 overflow-hidden text-ellipsis whitespace-nowrap' style={{
+                                overflow: 'hidden',
+                                display: '-webkit-box',
+                                WebkitBoxOrient: 'vertical',
+                                WebkitLineClamp: 2
+                            }}>
+                                {element.title}{element.name}</p>
                         </div>
                     </div>
                 ))}

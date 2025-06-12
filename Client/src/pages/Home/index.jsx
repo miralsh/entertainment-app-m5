@@ -206,8 +206,13 @@ export default function Home() {
                     <hr className=" w-1 border-white border-dotted border-t-4 mx-1" />
                     <p className='flex items-center md:px-2 text-xs md:text-sm text-gray-200 capitalize'>{element.media_type == 'movie' ? certificationMap[element.id] || 'Loading...' : tv_cert[element.id] || 'Loading...'}</p>
                   </div>
-                  <p className='flex text-xl items-center text-white w-[100%] mx-auto font-medium px-4 pb-4 line-clamp-2'>{element.title}{element.name}</p>
-                </div>
+<p className='flex  md:text-xl items-center text-white w-[95%]  font-medium md:px-4 pb-4 px-1 overflow-hidden text-ellipsis whitespace-nowrap' style={{
+                                        overflow: 'hidden',
+                                        display: '-webkit-box',
+                                        WebkitBoxOrient: 'vertical',
+                                        WebkitLineClamp: 2
+                                    }}>
+                                        {element.title}{element.name}</p>                     </div>
 
               </div>
             ))}</div>) : (val.trim()!=''?<h2 className="text-white">No data found</h2>: <>

@@ -124,7 +124,7 @@ const Recommended = () => {
             //state to keep track of which screen has added bookmark
             setBookmarkTriggeredHere(true);
             //if bookmark present - delete or add bookmark
-            bookmark.find(e => e.id == val.id) ? (dispatch(delete_bookmark({id:val.id, user_id:localStorage.getItem("user_id")}))) :
+            bookmark.find(e => e.id == val.id) ? (dispatch(delete_bookmark({ id: val.id, user_id: localStorage.getItem("user_id") }))) :
                 (dispatch(add_to_bookmark({ ...val, user_id: localStorage.getItem("user_id") })))
         } else {
             dispatch(setActive(''))
@@ -176,12 +176,18 @@ const Recommended = () => {
                         <div className='flex flex-col '>
                             <div className='flex items-center'>
                                 <p className='flex  items-center text-gray-200 py-1 md:ps-4 md:pe-2 text-xs md:text-sm px-1'>{getYear(element.release_date)}{getYear(element.first_air_date)}</p>
-                                    <hr className=" w-1 border-white border-dotted border-t-4" />
-                                    <p className='flex items-center md:px-2 text-xs md:text-sm text-gray-200 capitalize'>{element.media_type == 'movie' ? <RiFilmFill className='px-1' size={26} style={{ color: 'white' }} /> : <TbDeviceTvOld className='px-1' size={26} style={{ color: 'white' }} />}{element.media_type}</p>
-                                    <hr className=" w-1 border-white border-dotted border-t-4 mx-1" />
-                                    <p className='flex items-center md:px-2 text-xs md:text-sm text-gray-200 capitalize'>{element.media_type == 'movie' ? certificationMap[element.id] || 'Loading...' : tv_cert[element.id] || 'Loading...'}</p>
-                                </div>
-                            <p className='flex md:text-xl items-center text-white w-[100%] mx-auto font-medium md:px-4 pb-4 line-clamp-2'>{element.title}{element.name}</p>
+                                <hr className=" w-1 border-white border-dotted border-t-4" />
+                                <p className='flex items-center md:px-2 text-xs md:text-sm text-gray-200 capitalize'>{element.media_type == 'movie' ? <RiFilmFill className='px-1' size={26} style={{ color: 'white' }} /> : <TbDeviceTvOld className='px-1' size={26} style={{ color: 'white' }} />}{element.media_type}</p>
+                                <hr className=" w-1 border-white border-dotted border-t-4 mx-1" />
+                                <p className='flex items-center md:px-2 text-xs md:text-sm text-gray-200 capitalize'>{element.media_type == 'movie' ? certificationMap[element.id] || 'Loading...' : tv_cert[element.id] || 'Loading...'}</p>
+                            </div>
+                            <p className='flex  md:text-xl items-center text-white w-[95%]  font-medium md:px-4 pb-4 px-1 overflow-hidden text-ellipsis whitespace-nowrap' style={{
+                                overflow: 'hidden',
+                                display: '-webkit-box',
+                                WebkitBoxOrient: 'vertical',
+                                WebkitLineClamp: 2
+                            }}>
+                                {element.title}{element.name}</p>
                         </div>
 
                     </div>
