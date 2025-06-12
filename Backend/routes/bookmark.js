@@ -62,7 +62,7 @@ const deleteBookmark = async (req, res) => {
 
             // delete the found bookmark
             await bkmarkavailable.deleteOne({ id: parseInt(id), user_id: String(req.query.user_id) })
-            res.status(200).json(bookmark)
+            res.status(200).json(bkmarkavailable)
        
 
     } catch (err) {

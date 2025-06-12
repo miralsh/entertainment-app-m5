@@ -52,7 +52,7 @@ export const get_certification_tv = createAsyncThunk('media/get_certification_tv
         };
 
         const res = await axios.request(options)
-        return { id: series_id, data: response.data }
+        return { id: series_id, data: res.data }
     } catch (error) {
         return thunkAPI.rejectWithValue(error.response?.data || error.message)
     }

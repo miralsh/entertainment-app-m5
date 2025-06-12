@@ -39,6 +39,7 @@ export const delete_bookmark = createAsyncThunk('media/delete_bookmark', async (
         }
     };
     const res = await axios.request(options)
+    console.log("delete_bkmark "+JSON.stringify(res.data))
         return res.data
 
     } catch (error) {
