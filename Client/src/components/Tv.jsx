@@ -115,7 +115,6 @@ const Tv = ({ val }) => {
             .map(show => show.id);
         // fetch tv certification
         missingCertIds.forEach(id => {
-            console.log("tv id" +id)
             dispatch(get_certification_tv(id));
         });
     }, [tv_series, searched_tv, tv_cert]);
