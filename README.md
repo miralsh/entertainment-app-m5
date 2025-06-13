@@ -33,9 +33,6 @@ Installation
 11.	npm run build
 
 
-
-
-
 Folder Structure
 Client/src
   |-- assets          # Images, icons, etc.
@@ -58,6 +55,11 @@ Client/src
   |--config          # mongo db connection
   .env               # mongodburl, port, access_token_secret
   
+
+API Endpoints:
+https://documenter.getpostman.com/view/18088497/2sB2x5GXpa
+
+
 
 Screens:
 
