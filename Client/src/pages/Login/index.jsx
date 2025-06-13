@@ -18,6 +18,7 @@ export default function Login() {
     const [password, setPassword] = useState('')
     const user = useSelector(state => state.auth.user)
     const navigate = useNavigate()
+    //handle user data
     useEffect(() => {
         console.log("user "+JSON.stringify(user))
         if(user.length!=0){
@@ -28,6 +29,7 @@ export default function Login() {
         }
       
     }, [user])
+    //handle login status
     useEffect(() => {
         if (login_status.statusCode == 200) {
             if (login_status.httpResponse.accessToken != "") {
@@ -55,6 +57,7 @@ export default function Login() {
         }
         console.log(login_status)
     }, [login_status])
+    //handle login error
     useEffect(() => {
         if (login_err.message != undefined) {
             // alert(JSON.stringify(login_err.message))
@@ -67,6 +70,7 @@ export default function Login() {
             })
         }
     }, [login_err])
+    // handle form input
     const handleInput = (e) => {
         if (e.target.id == "email") {
             validateEmail(e.target.value)
@@ -74,6 +78,7 @@ export default function Login() {
             validatePassword(e.target.value)
         }
     }
+    //validate email
     const validateEmail = (val) => {
         let err = error.emailError
         let isValid = valid
@@ -96,6 +101,7 @@ export default function Login() {
 
         return isValid
     }
+    //validate password
     const validatePassword = (val) => {
         let err = error.passwordError
         let isvalid = valid
@@ -119,7 +125,7 @@ export default function Login() {
         return isvalid
     }
 
-
+    //handle form submission
     const handleSubmit = (e) => {
         e.preventDefault()
         if (validateEmail(email) && validatePassword(password)) {
@@ -136,6 +142,7 @@ export default function Login() {
                 <MdMovie size={30} className="cursor-pointer my-14" style={{ 'color': "#FC4747" }} />
                 <div className="flex flex-col  bg-[#161D2F] rounded-xl py-4 px-6 mx-12 ">
                     <p className="text-2xl text-white my-2 font-light">Login</p>
+                    {/* form */}
                     <form className="flex flex-col items-center" onSubmit={(e) => handleSubmit(e)}>
                         <div className="relative w-full">
                             <input id="email" placeholder="Email address" type="email" value={email} className={`w-full text-sm w-75 focus:outline-hidden px-2 py-2 my-2 placeholder-[#87898E] border-b-2 border-b-[#5A698F] text-white focus:caret-[#FC4747] focus:border-b-white ${error.emailError ? 'border-b-[#FC4747] ' : 'border-b-[#5A698F] '}`} onInput={(e) => handleInput(e)} />

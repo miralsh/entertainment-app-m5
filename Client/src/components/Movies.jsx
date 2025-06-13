@@ -123,7 +123,6 @@ const Movies = ({ val }) => {
                 uniqueIdsToFetch.push(movie.id);
             }
         });
-        console.log(uniqueIdsToFetch)
         // fetch movie certification
         if (uniqueIdsToFetch.length > 0) {
             uniqueIdsToFetch.forEach((id) => {

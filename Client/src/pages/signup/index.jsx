@@ -17,6 +17,7 @@ export default function Signup() {
     const [password, setPassword] = useState('')
     const [confirmpw, setConfirmPW] = useState('')
     const navigate = useNavigate()
+    //handle signup response
     useEffect(() => {
         if (status.statusCode == 201) {
             if (status.httpResponse.email != "") {
@@ -44,6 +45,7 @@ export default function Signup() {
         }
         console.log(status)
     }, [status])
+    // handle signup error
     useEffect(() => {
         if (signup_err.message != undefined) {
             toast({
@@ -56,21 +58,7 @@ export default function Signup() {
             //alert(JSON.stringify(signup_err.message))
         }
     }, [signup_err])
-    //     useEffect(() => {
-    //     if (login_status.status == 200) {
-    //         if (status.httpResponse.accesstoken != "") {
-    //            Navigate()
-    //         }
-    //     } else if (status.httpResponse != undefined) {
-    //         alert(status.httpResponse)
-    //     }
-    //     console.log(status)
-    // }, [login_status])
-    // useEffect(() => {
-    //     if (signup_err.message != undefined) {
-    //         alert(JSON.stringify(signup_err.message))
-    //     }
-    // }, [signup_err])
+    //handle user input
     const handleInput = (e) => {
         if (e.target.id == "email") {
             validateEmail(e.target.value)
@@ -80,6 +68,7 @@ export default function Signup() {
             validatePWMatch(e.target.value)
         }
     }
+    //validate email
     const validateEmail = (val) => {
         let err = error.emailError
         let isValid = valid
@@ -102,6 +91,7 @@ export default function Signup() {
 
         return isValid
     }
+    //validate password
     const validatePassword = (val) => {
         let err = error.passwordError
         let isvalid = valid
@@ -124,7 +114,7 @@ export default function Signup() {
         console.log(err, isvalid)
         return isvalid
     }
-
+    // validate confirm password
     const validatePWMatch = (val) => {
         let err = error.confirmPwError
         let isvalid = valid
@@ -143,6 +133,7 @@ export default function Signup() {
         setValid(isvalid)
         return isvalid
     }
+    // handle submit
     const handleSubmit = (e) => {
         e.preventDefault()
         if (validateEmail(email) && validatePassword(password) && validatePWMatch(confirmpw)) {
@@ -160,6 +151,7 @@ export default function Signup() {
                 <MdMovie size={30} className="cursor-pointer my-14" style={{ 'color': "#FC4747" }} />
                 <div className="flex flex-col  bg-[#161D2F] rounded-xl py-4 px-6 mx-12 ">
                     <p className="text-2xl text-white my-2 font-light">Sign up</p>
+                    {/* form */}
                     <form className="flex flex-col items-center" onSubmit={(e) => handleSubmit(e)}>
                         <div className="relative w-full">
                             <input id="email" placeholder="Email address" type="email" value={email} className={`w-full text-sm w-75 focus:outline-hidden px-2 py-2 my-2 placeholder-[#87898E] border-b-2 border-b-[#5A698F] text-white focus:caret-[#FC4747] focus:border-b-white ${error.emailError ? 'border-b-[#FC4747] ' : 'border-b-[#5A698F] '}`} onInput={(e) => handleInput(e)} />
@@ -188,44 +180,3 @@ export default function Signup() {
         </div>
     )
 }
-// import React, { useState } from 'react';
-// import '../.././Input.css';
-
-// const Signup = () => {
-//   const [value, setValue] = useState('');
-//   const [error, setError] = useState('');
-
-//   const handleSubmit = (e) => {
-//     e.preventDefault();
-//     if (value.trim() === '') {
-//       setError("Can't be empty");
-//     } else {
-//       setError('');
-//       alert('Submitted!');
-//     }
-//   };
-
-//   return (
-//     <form onSubmit={handleSubmit} className='bg-white'>
-//       <div className={`input-wrapper ${error ? 'error' : ''}`}>
-//         {!value && (
-//           <>
-//             <span className="placeholder-left">Password</span>
-//             <span className="placeholder-right">{error}</span>
-//           </>
-//         )}
-//         <input
-//           type="text"
-//           value={value}
-//           onInput={(e) => {
-//             setValue(e.target.value);
-//             setError('');
-//           }}
-//         />
-//       </div>
-//       <button type="submit">Submit</button>
-//     </form>
-//   );
-// };
-
-// export default Signup;
