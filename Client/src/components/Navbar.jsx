@@ -69,7 +69,7 @@ export default function Navbar() {
         window.location.reload();
     }
     return (
-        <div className="  bg-[#161D2F] md:rounded-xl px-2 lg:px-0 w-[100%] lg:w-auto">
+        <div className="  bg-[#161D2F] md:rounded-xl px-2 lg:px-0 w-[100%] lg:w-auto  lg:h-[90vh] relative">
             <div className="flex lg:flex-col justify-between items-center  mx-2 lg:my-8 ">
                 {/* Logo */}
                 <Link to="/"><MdMovie size={30} className="cursor-pointer" style={{ 'color': "#FC4747" }} /></Link>
@@ -82,7 +82,7 @@ export default function Navbar() {
                 </div>
                 
                 {/* SignIn/Logout */}
-                <div className="flex lg:flex-col items-center justify-end ">
+                <div className="flex lg:flex-col items-center justify-end lg:absolute lg:bottom-0 lg:pb-8">
                     {localStorage.getItem("accesstoken") ? (<LiaSignOutAltSolid className="cursor-pointer" size={24} style={{ color: "white" }} onClick={() => Logout()} />) :
                         <Link to="/signup"> <div className="flex justify-center items-center  w-8 h-8 rounded-full cursor-pointer bg-[#5A698F]">
                             <CgProfile size={30} className="text-[##384259]" />
