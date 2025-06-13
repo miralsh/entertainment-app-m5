@@ -49,7 +49,9 @@ export const login  = createAsyncThunk('auth/login', async(value,thunkAPI) => {
             return {httpResponse:res.data,statusCode:res.status}
             
         }catch(err) {
+          
                 if (err.response) {
+                   
                     // Server responded with an error status
                      return thunkAPI.rejectWithValue( {
                             message: err.response.data.error,

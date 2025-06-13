@@ -47,6 +47,7 @@ export default function Login() {
             }
         } else if (login_status.httpResponse != undefined) {
             // alert(login_status.httpResponse)
+            console.log(login_status.httpResponse)
             toast({
                 title: 'Error',
                 description: JSON.stringify(login_status.httpResponse),
@@ -132,7 +133,7 @@ export default function Login() {
             setEmail("")
             setPassword("")
             const user = { email, password }
-            console.log(user)
+           // console.log(user)
             dispatch(login(user))
         }
     }

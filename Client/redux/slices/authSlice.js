@@ -32,7 +32,7 @@ extraReducers:
         state.statusCode=action.payload
     })
     .addCase(login.rejected,(state,action)=>{
-        state.signup_error=action.payload
+        state.login_error=action.payload
         state.statusCode=action.payload
     })
     .addCase(get_user.fulfilled,(state,action)=>{
