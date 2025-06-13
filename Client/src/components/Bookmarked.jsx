@@ -26,8 +26,7 @@ const Bookmarked = ({ val }) => {
         dispatch(clearBkmarkSearchList())
     }, [])
 
-    // fetch bookmarks
-    const [bookmark, setBookMark] = useState([])
+
 
     useEffect(() => {
         if (added.message == "created") {
@@ -88,7 +87,7 @@ const Bookmarked = ({ val }) => {
         if (localStorage.getItem("accesstoken") != null) {
             setBookmarkTriggeredHere(true)
             // bookmark present then delete or add bookmark
-            bookmark.find(e => e.id == val.id) ? (dispatch(delete_bookmark({ id: val.id, user_id: localStorage.getItem("user_id") }))) :
+            bmark.find(e => e.id == val.id) ? (dispatch(delete_bookmark({ id: val.id, user_id: localStorage.getItem("user_id") }))) :
                 dispatch(add_to_bookmark({ ...val, user_id: localStorage.getItem("user_id") }))
         } else {
             dispatch(setActive(''))
@@ -190,7 +189,7 @@ const Bookmarked = ({ val }) => {
                             isMovie={true}
                             onSelect={onSelect}
                             onBookMark={onBookMark}
-                            isBookmarked={bookmark.some(e => e.id === element.id)}
+                            isBookmarked={listToRender.find(e => e.id === element.id)}
                             certification={certificationMap[element.id]}
                         />
                     )) : <p className='text-gray-500  my-4 text-xl'>No movies in bookmark</p> : <>Loading...</>}
@@ -232,7 +231,7 @@ const Bookmarked = ({ val }) => {
                                 isMovie={false}
                                 onSelect={onSelect}
                                 onBookMark={onBookMark}
-                                isBookmarked={bookmark.some(e => e.id === element.id)}
+                                isBookmarked={listToRender.find(e => e.id === element.id)}
                                 certification={tv_cert[element.id]}
                             />
                         )) : <p className='text-gray-500 my-4 text-xl  '>No TV series in bookmark</p> : <>Loading...</>}
@@ -247,7 +246,7 @@ const Bookmarked = ({ val }) => {
                                         isMovie={true}
                                         onSelect={onSelect}
                                         onBookMark={onBookMark}
-                                        isBookmarked={bookmark.some(e => e.id === element.id)}
+                                        isBookmarked={listToRender.find(e => e.id === element.id)}
                                         certification={certificationMap[element.id]}
                                     />
 
@@ -262,7 +261,7 @@ const Bookmarked = ({ val }) => {
                                         isMovie={false}
                                         onSelect={onSelect}
                                         onBookMark={onBookMark}
-                                        isBookmarked={bookmark.some(e => e.id === element.id)}
+                                        isBookmarked={listToRender.find(e => e.id === element.id)}
                                         certification={tv_cert[element.id]}
                                     />
                                 )) : <p className='text-gray-500 my-4 text-xl  '>No TV series in bookmark</p> : <>Loading...</>}

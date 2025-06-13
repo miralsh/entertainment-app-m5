@@ -61,8 +61,8 @@ const index = () => {
                         </div>
                         {/* links */}
                         <div className='flex font-bold mt-8'>
-                            <Link to={mDetail.homepage}><button className='flex items-center cursor-pointer text-white bg-gray-500 rounded md:px-6 px-2 py-2 text-sm me-4 ' >Website<FaLink className='ms-4' /></button></Link>
-                            <Link to={'https://www.imdb.com/title/' + mDetail.imdb_id}><button className='flex items-center cursor-pointer text-white bg-gray-500 rounded md:px-6 px-2 py-2 text-sm'>IMDB<FaImdb className='ms-4 '
+                            <Link to={mDetail.homepage} target='_blank'><button className='flex items-center cursor-pointer text-white bg-gray-500 rounded md:px-6 px-2 py-2 text-sm me-4 ' >Website<FaLink className='ms-4' /></button></Link>
+                            <Link to={'https://www.imdb.com/title/' + mDetail.imdb_id} target='_blank'><button className='flex items-center cursor-pointer text-white bg-gray-500 rounded md:px-6 px-2 py-2 text-sm'>IMDB<FaImdb className='ms-4 '
                                 style={{ color: "transparent", fill: "white" }} /></button></Link>
                         </div>
                     </div>

@@ -61,7 +61,7 @@ const index = () => {
                         </div>
                         {/* links */}
                         <div className='flex font-bold mt-8'>
-                            <Link to={tvDetail.homepage}><button className='flex items-center cursor-pointer text-white bg-gray-500 rounded px-6 py-2 text-sm me-4 ' >Website<FaLink className='ms-4' /></button></Link>
+                            <Link to={tvDetail.homepage} target='_blank'><button className='flex items-center cursor-pointer text-white bg-gray-500 rounded px-6 py-2 text-sm me-4 ' >Website<FaLink className='ms-4' /></button></Link>
 
                         </div>
                     </div>
