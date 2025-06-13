@@ -123,6 +123,7 @@ const Movies = ({ val }) => {
                 uniqueIdsToFetch.push(movie.id);
             }
         });
+        console.log(uniqueIdsToFetch)
         // fetch movie certification
         if (uniqueIdsToFetch.length > 0) {
             uniqueIdsToFetch.forEach((id) => {
@@ -142,7 +143,6 @@ const Movies = ({ val }) => {
     const onNext = () => {
           if (val?.trim() !== '' && searched_movies?.length > 0) {
                     const nextPage = curr_searchpg < search_pages ? curr_searchpg + 1 : curr_searchpg;
-                    console.log("next "+val+" "+nextPage)
                      dispatch(search_movie({ movieName:val, pg:nextPage }))
                 } else {
                     const nextPage = currpg < pages ? currpg + 1 : currpg;
@@ -156,7 +156,6 @@ const Movies = ({ val }) => {
     const onPrevious = () => {
        if (val?.trim() !== '' && searched_movies?.length > 0) {
                   const prevPage = curr_searchpg > 1 ? curr_searchpg - 1 : curr_searchpg;
-                    console.log("prev "+val+" "+prevPage)
                     dispatch(search_movie({ movieName:val, pg:prevPage }))
               } else {
                   const prevPage = currpg > 1 ? currpg - 1 : currpg;

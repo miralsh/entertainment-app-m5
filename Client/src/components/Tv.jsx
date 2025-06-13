@@ -106,11 +106,7 @@ const Tv = ({ val }) => {
             })
         }
     }
-    useEffect(() => {
-        console.log("VAL:", val);
-        console.log("currpg:", currpg, "pages:", pages);
-        console.log("curr_searchpg:", curr_searchpg, "search_pages:", search_pages);
-    }, [currpg, curr_searchpg, pages, search_pages, val]);
+    
     useEffect(() => { setBookMark(bkmark) }, [bkmark])
     // get certification for each tv series
     useEffect(() => {
@@ -119,6 +115,7 @@ const Tv = ({ val }) => {
         const missingCertIds = allTV
             .filter(show => !tv_cert[show.id])
             .map(show => show.id);
+            
         // fetch tv certification
         missingCertIds.forEach(id => {
             dispatch(get_certification_tv(id));
@@ -136,11 +133,9 @@ const Tv = ({ val }) => {
     const onNext = () => {
         if (val?.trim() !== '' && searched_tv?.length > 0) {
             const nextPage = curr_searchpg < search_pages ? curr_searchpg + 1 : curr_searchpg;
-            console.log("next "+val+" "+nextPage)
             dispatch(search_tv({tv: val, pg: nextPage }));
         } else {
             const nextPage = currpg < pages ? currpg + 1 : currpg;
-             console.log("next "+nextPage)
             dispatch(get_tvseries(nextPage));
         }
     }

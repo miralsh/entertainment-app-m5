@@ -58,14 +58,14 @@ const mediaSlice = createSlice({
             })
             .addCase(get_certification_movie.fulfilled, (state, action) => {
                 const id = action.meta.arg;
-                const auRelease = action.payload.results?.find(e => e.iso_3166_1 === 'AU');
+                const auRelease = action.payload.data.results?.find(e => e.iso_3166_1 === 'AU');
                 const cert = auRelease?.release_dates?.[0]?.certification || 'N/A';
                 state.certificationMap[id] = cert
             }
             )
             .addCase(get_certification_tv.fulfilled, (state, action) => {
                 const id = action.meta.arg;
-                const auRelease = action.payload.results?.find(e => e.iso_3166_1 === 'AU');
+                const auRelease = action.payload.data.results?.find(e => e.iso_3166_1 === 'AU');
                 const cert = auRelease?.rating || 'N/A';
                 state.tv_cert[id] = cert
             })

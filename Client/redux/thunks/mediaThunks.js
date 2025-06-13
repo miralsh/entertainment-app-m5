@@ -34,6 +34,7 @@ export const get_certification_movie = createAsyncThunk('media/get_certification
 
         const response =
             await axios.request(options)
+            console.log("response "+movie_id+" "+JSON.stringify(response.data))
         return { id: movie_id, data: response.data }
     } catch (error) {
         return thunkAPI.rejectWithValue(error.response?.data || error.message)
