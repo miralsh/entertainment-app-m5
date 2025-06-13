@@ -12,7 +12,7 @@ const initialState = {
 
 const bookmarkSlice = createSlice({
     name: 'bookmark', initialState, reducers: {
-        searchBookmark: (state) => {
+        searchBookmark: (state,action) => {
             const filtered = state.bookmark.filter(e => {
                 return e.name ? e.name.toLowerCase().includes(action.payload.toLowerCase()) : e.title && e.title.toLowerCase().includes(action.payload.toLowerCase())
             })

@@ -33,7 +33,7 @@ const index = () => {
             </div>
             {/* TV Series */}
             <h2 className="text-white text-2xl mx-2 lg:mx-6 ">TV Series</h2>
-            <Tv search={val} />
+            <Tv val={val} />
         </div>
     );
 };

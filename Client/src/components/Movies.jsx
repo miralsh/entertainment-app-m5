@@ -166,6 +166,7 @@ const Movies = ({ val }) => {
     const listToRender = searched_movies && searched_movies.length > 0 ? searched_movies : movies
     return (
         <div className='w-full lg:mx-6 mx-2'>
+              {val?.trim() != '' && searched_movies && searched_movies.length > 0 ?(<></>):(val?.trim() != '' ? <h2 className="text-white">No results found</h2>:(<></>))}
             <div className='grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 md:gap-4 gap-1 mt-6'>
                 {listToRender?.map((element, index) => (
                     <div key={index}>

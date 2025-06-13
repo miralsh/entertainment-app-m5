@@ -33,8 +33,8 @@ const index = () => {
                 <input placeholder="Search for bookmarked shows" type="search" className="text-xl w-100 mx-2 focus:outline-hidden px-2 py-2 my-2 placeholder-[#87898E]  text-white focus:caret-[#FC4747] focus:border-b-1 focus:border-b-[#5A698F]" onChange={(e) => search(e)} value={val} />
             </div>
             {/* bookmark */}
-            <h2 className="text-white text-2xl lg:mx-6">Bookmarked Movies</h2>
-            <Bookmarked />
+           
+            <Bookmarked val={val}/>
         </div>
     );
 };
