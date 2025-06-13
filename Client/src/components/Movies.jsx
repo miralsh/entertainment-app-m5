@@ -17,12 +17,14 @@ const Movies = ({ val }) => {
     const movies = useSelector(state => state.media.movies.results)
     const searched_movies = useSelector(state => state.media.search_movie.results)
     const pages = useSelector(state => state.media.movies.total_pages)
+    const currpg = useSelector(state=>state.media.movies.page)
+    const curr_searchpg = useSelector(state=>state.media.search_movie.page)
     const search_pages = useSelector(state => state.media.search_movie.total_pages)
     const certificationMap = useSelector(state => state.media.certificationMap)
     const bkmark = useSelector(state => state.bookmark.bookmark)
     const added = useSelector(state => state.bookmark.added)
     const delete_bkmark = useSelector(state => state.bookmark.delete_bookmark)
-    const [currPage, setCurrPage] = useState(1)
+   
     const navigate = useNavigate()
     const [bookmarkTriggeredHere, setBookmarkTriggeredHere] = useState(false);
     const [bookmark, setBookMark] = useState([])
@@ -30,7 +32,7 @@ const Movies = ({ val }) => {
     useEffect(() => {
         dispatch(clearMediaSearchList())
     }, [])
-
+   
     // on add bookmark, call get bookmark and display toast message
     useEffect(() => {
         if (!bookmarkTriggeredHere || added === undefined) return;
@@ -138,35 +140,35 @@ const Movies = ({ val }) => {
     }
     // on next click
     const onNext = () => {
-        let pg = 1
-        if (currPage < (pages ? pages : search_pages)) {
-            pg = currPage + 1
-        } else {
-            pg = currPage
-        }
-
-        setCurrPage(pg)
-        dispatch(get_movies(pg))
-        dispatch(search_movie({ val, pg }))
+          if (val?.trim() !== '' && searched_movies?.length > 0) {
+                    const nextPage = curr_searchpg < search_pages ? curr_searchpg + 1 : curr_searchpg;
+                    console.log("next "+val+" "+nextPage)
+                     dispatch(search_movie({ movieName:val, pg:nextPage }))
+                } else {
+                    const nextPage = currpg < pages ? currpg + 1 : currpg;
+                     console.log("next "+nextPage)
+                    dispatch(get_movies(nextPage))
+                }
+       
+       
     }
     // on prev click
     const onPrevious = () => {
-        let pg = 1
-        if (currPage > 0) {
-            pg = currPage - 1
-        } else {
-            pg = currPage
-        }
-
-        setCurrPage(pg)
-        dispatch(get_movies(pg))
-        dispatch(search_movie({ val, pg }))
+       if (val?.trim() !== '' && searched_movies?.length > 0) {
+                  const prevPage = curr_searchpg > 1 ? curr_searchpg - 1 : curr_searchpg;
+                    console.log("prev "+val+" "+prevPage)
+                    dispatch(search_movie({ movieName:val, pg:prevPage }))
+              } else {
+                  const prevPage = currpg > 1 ? currpg - 1 : currpg;
+                  console.log("prev "+prevPage)
+                  dispatch(get_movies(prevPage))
+              }
     }
     // render search list or movies list
-    const listToRender = searched_movies && searched_movies.length > 0 ? searched_movies : movies
+    const listToRender = val?.trim()!=''&& searched_movies && searched_movies.length > 0 ? searched_movies : movies
     return (
         <div className='w-full lg:mx-6 mx-2'>
-              {val?.trim() != '' && searched_movies && searched_movies.length > 0 ?(<></>):(val?.trim() != '' ? <h2 className="text-white">No results found</h2>:(<></>))}
+              {val?.trim() != '' && searched_movies && searched_movies.length > 0 ?(<></>):(val?.trim() != '' && searched_movies && searched_movies.length == 0  ? <h2 className="text-white">No results found</h2>:(<></>))}
             <div className='grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 md:gap-4 gap-1 mt-6'>
                 {listToRender?.map((element, index) => (
                     <div key={index}>
@@ -207,7 +209,7 @@ const Movies = ({ val }) => {
             {/* Pagination */}
             <div className='mx-auto flex items-center justify-center'>
                 <IoIosArrowBack style={{ color: "white" }} size={25} className='hover:scale-[1.2] cursor-pointer' onClick={() => onPrevious()} />
-                <p className='mx-4 text-white text-lg'> Page {currPage} of {searched_movies?.length > 0 ? search_pages : pages} </p>
+                <p className='mx-4 text-white text-lg'> Page {val?.trim()!=''&& searched_movies?.length > 0 ?curr_searchpg:currpg} of {val?.trim()!=''&& searched_movies?.length > 0 ? search_pages : pages} </p>
                 <IoIosArrowForward style={{ color: "white" }} size={25} className='hover:scale-[1.2] cursor-pointer' onClick={() => onNext()} />
             </div>
         </div>

@@ -133,6 +133,7 @@ export const search_movie = createAsyncThunk('media/search_movie', async ({ movi
 
 // Search TV series by name and page
 export const search_tv = createAsyncThunk('media/search_tv', async ({ tv, pg }, thunkAPI) => {
+
     try {
         const options = {
             url: `${tmdbUrl}3/search/tv?query=${tv}&include_adult=false&language=en-US&page=${pg}`,

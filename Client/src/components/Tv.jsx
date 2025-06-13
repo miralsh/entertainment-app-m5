@@ -18,11 +18,12 @@ const Tv = ({ val }) => {
     const tv_series = useSelector(state => state.media.tv_series.results)
     const pages = useSelector(state => state.media.tv_series.total_pages)
     const search_pages = useSelector(state => state.media.search_tv.total_pages)
+    const currpg = useSelector(state => state.media.tv_series.page)
+    const curr_searchpg = useSelector(state => state.media.search_tv.page)
     const tv_cert = useSelector(state => state.media.tv_cert)
     const bkmark = useSelector(state => state.bookmark.bookmark)
     const added = useSelector(state => state.bookmark.added)
     const delete_bkmark = useSelector(state => state.bookmark.delete_bookmark)
-    const [currPage, setCurrPage] = useState(1)
     const navigate = useNavigate()
     const [bookmarkTriggeredHere, setBookmarkTriggeredHere] = useState(false);
     // clear search list on page mount
@@ -105,6 +106,11 @@ const Tv = ({ val }) => {
             })
         }
     }
+    useEffect(() => {
+        console.log("VAL:", val);
+        console.log("currpg:", currpg, "pages:", pages);
+        console.log("curr_searchpg:", curr_searchpg, "search_pages:", search_pages);
+    }, [currpg, curr_searchpg, pages, search_pages, val]);
     useEffect(() => { setBookMark(bkmark) }, [bkmark])
     // get certification for each tv series
     useEffect(() => {
@@ -117,6 +123,7 @@ const Tv = ({ val }) => {
         missingCertIds.forEach(id => {
             dispatch(get_certification_tv(id));
         });
+      //  console.log(searched_tv)
     }, [tv_series, searched_tv, tv_cert]);
     // on item click
     const onSelect = (id) => {
@@ -127,35 +134,33 @@ const Tv = ({ val }) => {
         navigate(`/tvSeriesDetails/${id}`)
     }// on next click
     const onNext = () => {
-        let pg = 1
-        if (currPage < (pages ? pages : search_pages)) {
-            pg = currPage + 1
+        if (val?.trim() !== '' && searched_tv?.length > 0) {
+            const nextPage = curr_searchpg < search_pages ? curr_searchpg + 1 : curr_searchpg;
+            console.log("next "+val+" "+nextPage)
+            dispatch(search_tv({tv: val, pg: nextPage }));
         } else {
-            pg = currPage
+            const nextPage = currpg < pages ? currpg + 1 : currpg;
+             console.log("next "+nextPage)
+            dispatch(get_tvseries(nextPage));
         }
-
-        setCurrPage(pg)
-        dispatch(get_tvseries(pg))
-        dispatch(search_tv({ val, pg }))
     }
     // on prev click
     const onPrevious = () => {
-        let pg = 1
-        if (currPage > 0) {
-            pg = currPage - 1
+        if (val?.trim() !== '' && searched_tv?.length > 0) {
+            const prevPage = curr_searchpg > 1 ? curr_searchpg - 1 : curr_searchpg;
+              console.log("prev "+val+" "+prevPage)
+            dispatch(search_tv({ tv:val, pg: prevPage }));
         } else {
-            pg = currPage
+            const prevPage = currpg > 1 ? currpg - 1 : currpg;
+            console.log("prev "+prevPage)
+            dispatch(get_tvseries(prevPage));
         }
-
-        setCurrPage(pg)
-        dispatch(get_tvseries(pg))
-        dispatch(search_tv({ val, pg }))
     }
     // render search list or tv series list
-    const listToRender = searched_tv && searched_tv.length > 0 ? searched_tv : tv_series
+    const listToRender = val?.trim() != '' && searched_tv && searched_tv.length > 0 ? searched_tv : tv_series
     return (
         <div className='w-full  lg:mx-6 mx-2'>
-            {val?.trim() != '' && searched_tv && searched_tv.length > 0 ?(<></>):(val?.trim() != '' ? <h2 className="text-white">No results found</h2>:(<></>))}
+            {val?.trim() != '' && searched_tv && searched_tv.length > 0 ? (<></>) : (val?.trim() != ''&& searched_tv && searched_tv.length == 0 ? <h2 className="text-white">No results found</h2> : (<></>))}
             <div className='grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 md:gap-4 gap-1 mt-6'>
                 {listToRender?.map((element, index) => (
                     <div key={index}>
@@ -184,15 +189,15 @@ const Tv = ({ val }) => {
                                 WebkitBoxOrient: 'vertical',
                                 WebkitLineClamp: 2
                             }}>
-                                {element.title}{element.name}</p>      
-                                                  </div>
+                                {element.title}{element.name}</p>
+                        </div>
                     </div>
                 ))}
             </div>
             {/* Pagination */}
             <div className='mx-auto flex items-center justify-center'>
                 <IoIosArrowBack style={{ color: "white" }} size={25} className='hover:scale-[1.2] cursor-pointer' onClick={() => onPrevious()} />
-                <p className='mx-4 text-white text-lg'> Page {currPage} of {searched_tv?.length > 0 ? search_pages : pages} </p>
+                <p className='mx-4 text-white text-lg'> Page {val?.trim() !== '' && searched_tv?.length > 0 ? curr_searchpg : currpg} of {val?.trim() !== '' && searched_tv?.length > 0 ? search_pages : pages} </p>
                 <IoIosArrowForward style={{ color: "white" }} size={25} className='hover:scale-[1.2] cursor-pointer' onClick={() => onNext()} />
             </div>
         </div>
