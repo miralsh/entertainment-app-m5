@@ -3,7 +3,7 @@ import axios from 'axios'
 
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
-const baseUrl = 'https://entertainment-app-m5.onrender.com'
+const baseUrl = import.meta.env.VITE_API_BASE_URL || 'https://entertainment-app-m5.onrender.com'
 
 
 // Get all bookmarks of a user

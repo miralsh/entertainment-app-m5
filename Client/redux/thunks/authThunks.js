@@ -2,7 +2,7 @@ import axios from 'axios'
 
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
-const baseUrl = 'https://entertainment-app-m5.onrender.com'
+const baseUrl = import.meta.env.VITE_API_BASE_URL || 'https://entertainment-app-m5.onrender.com'
 
 // Fetch current authenticated user details
 export const get_user  = createAsyncThunk('auth/get_user', async (_,thunkAPI) => {

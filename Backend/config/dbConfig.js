@@ -2,23 +2,14 @@ const mongoose = require('mongoose')
 
 const dbConnection = async () => {
     try {
-        // connect to the mongo db via the mongo db url
-        const connect = mongoose.connect(process.env.MONGODBURL)
-        const database = mongoose.connection;
+        if (!process.env.MONGODBURL) {
+            throw new Error('MONGODBURL is not configured')
+        }
 
-        // on error
-        database.on("err", () => {
-            console.log("database connection error")
-        })
-
-        // connection successful
-        database.once("connected", () => {
-            console.log("database connection successful")
-        })
+        await mongoose.connect(process.env.MONGODBURL)
+        console.log("database connection successful")
     } catch (err) {
-        //error
-        console.log("not connected " + err.message)
-
+        console.error("database connection error: " + err.message)
     }
 }
 module.exports = dbConnection;
