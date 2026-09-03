@@ -64,39 +64,19 @@ https://documenter.getpostman.com/view/18088497/2sB2x5GXpa
 Screens:
 
 Home
-
-![Screenshot 2025-06-13 191415](https://github.com/user-attachments/assets/40725f44-8e7b-4257-9912-65a559561f32)
+<img width="1920" height="913" alt="Screenshot 2026-09-03 at 20-07-02 Entertainment App" src="https://github.com/user-attachments/assets/9aedd440-e4db-43a4-892a-f3c2074d3ec9" />
 
 Movies
-![Screenshot 2025-06-13 191425](https://github.com/user-attachments/assets/0f720e2c-3f0b-4c8a-83fa-d5958fa5f9fa)
+<img width="1920" height="913" alt="Screenshot 2026-09-03 at 20-08-43 Entertainment App" src="https://github.com/user-attachments/assets/3d96eef4-4b3a-482b-8c4a-b344541e506b" />
 
 Movie Detail
-![Screenshot 2025-06-13 191713](https://github.com/user-attachments/assets/56183cb6-1798-4634-bc0e-923a9e3d619b)
-
-Tv-series
-
-![Screenshot 2025-06-13 191432](https://github.com/user-attachments/assets/e8726c65-933e-4b47-b2ba-28fcccf342ba)
-
-TV series Detail
-
-![Screenshot 2025-06-13 191724](https://github.com/user-attachments/assets/95d34bb8-e97d-439f-9e5e-780a4c4a4864)
+<img width="1920" height="913" alt="Screenshot 2026-09-03 at 20-09-58 Entertainment App" src="https://github.com/user-attachments/assets/f2a40533-d36d-4358-9210-98818332f1fd" />
 
 Bookmark
-
-
-![Screenshot 2025-06-13 191703](https://github.com/user-attachments/assets/8c5cef10-84c6-4825-85f5-6cb2d459fab9)
-
-
+<img width="1920" height="1297" alt="Screenshot 2026-09-03 at 20-11-15 Entertainment App" src="https://github.com/user-attachments/assets/7eb38db0-06df-4199-9f70-a233ab8d15db" />
 
 Login/Sign up
-
-![Screenshot 2025-06-13 191448](https://github.com/user-attachments/assets/1478b7dd-88e8-4a1e-bb49-1fe1b6d6c715)
-
-
-![Screenshot 2025-06-13 191454](https://github.com/user-attachments/assets/20b1c9bc-67fd-4d7c-ab3a-330540dbec17)
-
-
-
+<img width="1920" height="1517" alt="Screenshot 2026-09-03 at 20-11-53 Entertainment App" src="https://github.com/user-attachments/assets/19c73c54-ff9b-44c8-9a74-5e3968579b8e" />
 
 Contact
 For questions, feedback, or collaboration, feel free to reach out to Miral Harsora at miralharsora18@gmail.com
