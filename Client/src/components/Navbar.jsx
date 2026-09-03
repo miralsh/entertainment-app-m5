@@ -69,8 +69,8 @@ export default function Navbar() {
         window.location.reload();
     }
     return (
-        <nav aria-label="Main navigation" className="bg-[#161D2F] shadow-lg shadow-black/10 md:rounded-xl px-2 lg:px-0 w-[100%] lg:w-auto lg:h-[90vh] relative">
-            <div className="flex lg:flex-col justify-between items-center  mx-2 lg:my-8 ">
+        <nav aria-label="Main navigation" className="relative w-full bg-[#161D2F] px-2 shadow-lg shadow-black/10 md:rounded-xl lg:sticky lg:top-0 lg:h-screen lg:w-24 lg:shrink-0 lg:rounded-none lg:px-0">
+            <div className="mx-2 flex items-center justify-between lg:my-0 lg:h-full lg:flex-col lg:py-8">
                 {/* Logo */}
                 <Link to="/" aria-label="Go to home"><MdMovie size={30} className="cursor-pointer transition-transform hover:scale-110" style={{ 'color': "#FC4747" }} /></Link>
                 {/* options */}

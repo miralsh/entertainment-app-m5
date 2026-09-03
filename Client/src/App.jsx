@@ -25,12 +25,11 @@ function App() {
     if (userId && accessToken) dispatch(get_bookmark(userId))
   }, [location.pathname])
   return (
-    <div className='lg:flex bg-[#10141E] min-h-screen font-outfit font-light'>
-      <div className='lg:flex  md:px-6  py-6 bg-[#10141E] w-full font-outfit font-light'>
-
-        <BrowserRouter>
+    <BrowserRouter>
+      <div className='min-h-screen bg-[#10141E] font-outfit font-light lg:flex lg:h-screen lg:overflow-hidden'>
           <Navbar />
-          <Routes>
+          <main className='min-w-0 flex-1 py-4 lg:h-screen lg:overflow-y-auto lg:px-6 lg:py-6'>
+            <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/movies" element={<Movies />} />
             <Route path="/tvseries" element={<Tv />} />
@@ -39,10 +38,10 @@ function App() {
             <Route path='/movieDetails/:id' element={<MovieDetail/>}/>
             <Route path="/tvSeriesDetails/:id" element={<TvSeriesDetail/>}/>
             <Route path='/bookmarked' element={<Bookmark/>}/>
-          </Routes>
-        </BrowserRouter>
+            </Routes>
+          </main>
       </div>
-    </div>
+    </BrowserRouter>
   )
 }
 
