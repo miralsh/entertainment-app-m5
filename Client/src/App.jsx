@@ -20,7 +20,9 @@ function App() {
   useEffect(() => {
     dispatch(get_trending_list());
     dispatch(get_recommended());
-    dispatch(get_bookmark(localStorage.getItem("user_id")))
+    const userId = localStorage.getItem("user_id")
+    const accessToken = localStorage.getItem("accesstoken")
+    if (userId && accessToken) dispatch(get_bookmark(userId))
   }, [location.pathname])
   return (
     <div className='lg:flex bg-[#10141E] min-h-screen font-outfit font-light'>

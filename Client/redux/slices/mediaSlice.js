@@ -15,7 +15,9 @@ const initialState = {
     tv_cast: [],
     search_movie: {},
     search_tv: {},
-    search_all: []
+    search_all: [],
+    requestStatus: { trending: 'idle', recommended: 'idle' },
+    requestError: { trending: null, recommended: null }
 }
 
 const mediaSlice = createSlice({
@@ -44,11 +46,29 @@ const mediaSlice = createSlice({
     },
     extraReducers: (builder) => {
         builder
+            .addCase(get_trending_list.pending, (state) => {
+                state.requestStatus.trending = 'loading'
+                state.requestError.trending = null
+            })
             .addCase(get_trending_list.fulfilled, (state, action) => {
                 state.trending = action.payload.results
+                state.requestStatus.trending = 'succeeded'
+            })
+            .addCase(get_trending_list.rejected, (state, action) => {
+                state.requestStatus.trending = 'failed'
+                state.requestError.trending = action.payload?.status_message || action.payload?.message || 'Unable to load trending titles.'
+            })
+            .addCase(get_recommended.pending, (state) => {
+                state.requestStatus.recommended = 'loading'
+                state.requestError.recommended = null
             })
             .addCase(get_recommended.fulfilled, (state, action) => {
                 state.recommended = action.payload.results
+                state.requestStatus.recommended = 'succeeded'
+            })
+            .addCase(get_recommended.rejected, (state, action) => {
+                state.requestStatus.recommended = 'failed'
+                state.requestError.recommended = action.payload?.status_message || action.payload?.message || 'Unable to load recommendations.'
             })
             .addCase(get_movies.fulfilled, (state, action) => {
                 state.movies = action.payload

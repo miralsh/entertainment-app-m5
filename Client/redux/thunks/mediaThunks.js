@@ -57,11 +57,12 @@ export const get_certification_tv = createAsyncThunk('media/get_certification_tv
         return thunkAPI.rejectWithValue(error.response?.data || error.message)
     }
 })
-// Fetch recommended movies for the user from TMDB
+// TMDB account recommendations need a user session; use the public weekly feed
+// so recommendations work with the application's read-only API token.
 export const get_recommended = createAsyncThunk('media/get_recommended', async (_, thunkAPI) => {
     try {
         const options = {
-            url: `${tmdbUrl}4/account/678ce223859fb4e6a86df1cb/movie/recommendations?page=1&include_adult=false&language=en-US`,
+            url: `${tmdbUrl}3/trending/all/week?language=en-US`,
             method: 'GET',
             headers: {
                 accept: 'application/json',
@@ -69,7 +70,10 @@ export const get_recommended = createAsyncThunk('media/get_recommended', async (
             }
         };
         const res = await axios.request(options)
-        return res.data
+        return {
+            ...res.data,
+            results: res.data.results.filter(({ media_type }) => media_type === 'movie' || media_type === 'tv')
+        }
     } catch (error) {
         return thunkAPI.rejectWithValue(error.response?.data || error.message)
     }
@@ -226,8 +230,6 @@ export const get_tv_cast  = createAsyncThunk('media/get_tv_cast', async (id) => 
         return thunkAPI.rejectWithValue(error.response?.data || error.message)
     }
 })
-
-
 
 
 
