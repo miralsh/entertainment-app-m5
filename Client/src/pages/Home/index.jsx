@@ -173,7 +173,7 @@ export default function Home() {
   }, [val])
   useEffect(() => () => clearTimeout(debounceTimer.current), [])
   return (
-    < div className="lg:mx-8 w-full overflow-x-hidden scrollbar-hide px-4">
+    < div className="mx-auto w-full max-w-[1600px] overflow-x-hidden scrollbar-hide px-4 sm:px-5 lg:px-8">
       <div className="my-5 flex max-w-2xl items-center rounded-xl border border-transparent bg-[#161D2F] px-4 shadow-sm transition focus-within:border-[#5A698F] focus-within:ring-2 focus-within:ring-[#FC4747]/25">
         <LuSearch className="shrink-0 text-[#BFC4CE]" size={22} />
         <input aria-label="Search movies and TV series" placeholder="Search for movies or TV series" type="search" className="w-full bg-transparent px-3 py-3 text-base text-white placeholder-[#87898E] outline-none md:text-lg" onChange={search} value={val} />

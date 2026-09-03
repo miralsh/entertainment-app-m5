@@ -157,22 +157,22 @@ const Recommended = () => {
         }
     }
     if (recommendationStatus === 'loading') {
-        return <div className='grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 md:gap-5 gap-3 lg:mx-6 mx-2'>
+        return <div className='grid grid-cols-2 gap-3 md:grid-cols-3 md:gap-5 lg:grid-cols-4'>
             {Array.from({ length: 8 }).map((_, index) => <div key={index} className='animate-pulse'><div className='aspect-video rounded-xl bg-[#283044]' /><div className='mt-3 h-3 w-2/3 rounded bg-[#283044]' /><div className='mt-2 h-4 w-4/5 rounded bg-[#283044]' /></div>)}
         </div>
     }
     if (recommendationStatus === 'failed') {
-        return <div className='lg:mx-6 mx-2 rounded-xl border border-[#5A698F] bg-[#161D2F] p-5 text-center text-white'>
+        return <div className='rounded-xl border border-[#5A698F] bg-[#161D2F] p-5 text-center text-white'>
             <p className='font-medium'>Recommendations could not be loaded.</p>
             <p className='mt-1 text-sm text-[#BFC4CE]'>{recommendationError}</p>
             <button type='button' onClick={() => dispatch(get_recommended())} className='mt-4 rounded-lg bg-[#FC4747] px-4 py-2 text-sm font-medium transition hover:bg-[#FF6A6A]'>Try again</button>
         </div>
     }
     if (recommended.length === 0) {
-        return <div className='lg:mx-6 mx-2 rounded-xl border border-dashed border-[#5A698F] p-5 text-center text-[#BFC4CE]'>No recommendations are available yet.</div>
+        return <div className='rounded-xl border border-dashed border-[#5A698F] p-5 text-center text-[#BFC4CE]'>No recommendations are available yet.</div>
     }
     return (
-        <div className='w-full lg:mx-6 mx-2'>
+        <div className='w-full'>
             <div className='grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 md:gap-5 gap-3'>
                 {recommended.map((element) => (
                     <div key={`${element.media_type}-${element.id}`} className='group'>

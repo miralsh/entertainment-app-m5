@@ -70,11 +70,11 @@ export default function Navbar() {
     }
     return (
         <nav aria-label="Main navigation" className="sticky top-0 z-50 w-full border-b border-white/10 bg-[#0B0B0D]/95 px-3 shadow-lg shadow-black/30 backdrop-blur-md">
-            <div className="mx-auto flex h-16 max-w-[1600px] items-center justify-between gap-4 md:h-[4.75rem] md:px-5">
+            <div className="mx-auto grid h-16 max-w-[1600px] grid-cols-[1fr_auto_1fr] items-center gap-2 md:h-[4.75rem] md:px-5">
                 {/* Logo */}
                 <Link to="/" aria-label="CineVault home" className="flex shrink-0 items-center gap-2 text-white"><MdMovie size={30} className="cursor-pointer transition-transform hover:scale-110" style={{ 'color': "#E50914" }} /><span className="hidden text-lg font-bold tracking-tight sm:block">CineVault</span></Link>
                 {/* options */}
-                <div className="flex min-w-0 flex-1 items-center justify-end gap-2 overflow-x-auto py-2 sm:justify-start sm:gap-4 md:gap-8">
+                <div className="flex min-w-0 items-center justify-center gap-2 overflow-x-auto py-2 sm:gap-4 md:gap-8">
                     <Link to="/" aria-label="Home" className={`inline-flex shrink-0 items-center gap-2 rounded-md px-2 py-2 text-sm font-medium transition hover:text-white focus:outline-none focus:ring-2 focus:ring-[#E50914] ${activeP == 'Home' ? 'text-white' : 'text-[#B3B3B3]'}`} onClick={() => onSelect('Home')}><RiLayoutGridFill size={20} /><span className="hidden md:inline">Home</span></Link>
                     <Link to="/movies" aria-label="Movies" className={`inline-flex shrink-0 items-center gap-2 rounded-md px-2 py-2 text-sm font-medium transition hover:text-white focus:outline-none focus:ring-2 focus:ring-[#E50914] ${activeP == 'Movie' ? 'text-white' : 'text-[#B3B3B3]'}`} onClick={() => onSelect('Movie')}><RiFilmFill size={20} /><span className="hidden md:inline">Movies</span></Link>
                     <Link to="/tvseries" aria-label="TV series" className={`inline-flex shrink-0 items-center gap-2 rounded-md px-2 py-2 text-sm font-medium transition hover:text-white focus:outline-none focus:ring-2 focus:ring-[#E50914] ${activeP == 'Tv' ? 'text-white' : 'text-[#B3B3B3]'}`} onClick={() => onSelect('Tv')}><TbDeviceTvOld size={20} /><span className="hidden md:inline">TV Series</span></Link>
@@ -82,7 +82,7 @@ export default function Navbar() {
                 </div>
                 
                 {/* SignIn/Logout */}
-                <div className="flex shrink-0 items-center justify-end">
+                <div className="flex items-center justify-end">
                     {localStorage.getItem("accesstoken") ? (<button type="button" aria-label="Sign out" title="Sign out" className="rounded-md p-2 text-white transition hover:bg-white/10 focus:outline-none focus:ring-2 focus:ring-[#E50914]" onClick={Logout}><LiaSignOutAltSolid size={23} /></button>) :
                         <Link to="/signup" aria-label="Create an account"> <div className="flex h-9 w-9 items-center justify-center rounded bg-[#E50914] transition hover:bg-[#F6121D]">
                             <CgProfile size={25} className="text-white" />

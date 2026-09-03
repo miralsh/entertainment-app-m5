@@ -195,7 +195,7 @@ const Trending = () => {
                     // img 
                     <div
                         key={`${element.media_type}-${element.id}`}
-                        className="relative inline-block h-45 w-64 snap-start overflow-hidden rounded-xl bg-cover bg-center bg-no-repeat mr-4 mb-2 cursor-pointer shadow-sm transition duration-300 hover:-translate-y-1 hover:shadow-lg hover:shadow-black/40 sm:w-72 md:w-80 lg:w-80"
+                        className="relative inline-block h-45 w-64 snap-start overflow-hidden rounded-xl bg-cover bg-center bg-no-repeat mr-4 mb-2 cursor-pointer shadow-sm transition duration-300 last:mr-0 hover:-translate-y-1 hover:shadow-lg hover:shadow-black/40 sm:w-72 md:w-80 lg:w-80"
                         style={{ backgroundImage: `linear-gradient(to top, rgba(16,20,30,.88), rgba(16,20,30,.04)), url(${element.backdrop_path != null ? img_url + element.backdrop_path : 'https://images.pexels.com/photos/159868/lost-cat-tree-sign-fun-159868.jpeg'})` }}
                         onClick={() => onSelect(element.id, element.media_type)}
                     >
