@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { MdMovie } from "react-icons/md";
-import { emailRegex, pwRegex } from "../../helper";
+import { emailRegex } from "../../helper";
 import { useDispatch, useSelector } from "react-redux";
 import { get_user, login } from "../../../redux/thunks/authThunks";
 import { get_bookmark } from "../../../redux/thunks/bookmarkThunks";
@@ -109,12 +109,6 @@ export default function Login() {
         if (val.trim() == '') {
             isvalid = false
             err = "Can't be empty"
-        } else if (val.length < 8) {
-            isvalid = false
-            err = "Password should be atleast 8 characters long"
-        } else if (!pwRegex.test(val)) {
-            isvalid = false
-            err = "Password should contain atleast one uppercase, one lowercase, one digit and a special character"
         } else {
             isvalid = true
             err = ""
