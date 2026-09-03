@@ -179,7 +179,8 @@ const Trending = () => {
             {/* Left arrow */}
 
             <button
-                className="absolute left-0 top-1/2 z-10 -translate-y-1/2 bg-black/50 p-2 rounded-full text-white hover:bg-black cursor-pointer"
+                aria-label="Show previous trending titles"
+                className="absolute left-0 top-1/2 z-10 -translate-y-1/2 rounded-full bg-black/60 p-2 text-white shadow-lg transition hover:scale-105 hover:bg-black focus:outline-none focus:ring-2 focus:ring-[#FC4747]"
                 onClick={() => scroll(-300)}
             >
                 <FaChevronLeft />
@@ -188,15 +189,14 @@ const Trending = () => {
             {/* Scrollable content */}
             <div
                 ref={scrollRef}
-                className="w-full overflow-x-auto whitespace-nowrap scrollbar-hide scroll-smooth px-10"
+                className="w-full snap-x snap-mandatory overflow-x-auto whitespace-nowrap scrollbar-hide scroll-smooth px-10"
             >
-                {trending?.map((element, index) => (
+                {trending?.map((element) => (
                     // img 
                     <div
-                        key={index}
-                        className="relative inline-block w-64 sm:w-72 md:w-80 lg:w-80 mr-4 bg-cover bg-no-repeat rounded-xl h-45 cursor-pointer
-                         hover:shadow-sm hover:shadow-white mb-2"
-                        style={{ backgroundImage: `url(${element.backdrop_path != null ? img_url + element.backdrop_path : 'https://images.pexels.com/photos/159868/lost-cat-tree-sign-fun-159868.jpeg'})` }}
+                        key={`${element.media_type}-${element.id}`}
+                        className="relative inline-block h-45 w-64 snap-start overflow-hidden rounded-xl bg-cover bg-center bg-no-repeat mr-4 mb-2 cursor-pointer shadow-sm transition duration-300 hover:-translate-y-1 hover:shadow-lg hover:shadow-black/40 sm:w-72 md:w-80 lg:w-80"
+                        style={{ backgroundImage: `linear-gradient(to top, rgba(16,20,30,.88), rgba(16,20,30,.04)), url(${element.backdrop_path != null ? img_url + element.backdrop_path : 'https://images.pexels.com/photos/159868/lost-cat-tree-sign-fun-159868.jpeg'})` }}
                         onClick={() => onSelect(element.id, element.media_type)}
                     >
                         {/* bookmark */}
@@ -238,7 +238,8 @@ const Trending = () => {
 
             {/* Right arrow */}
             <button
-                className="absolute right-0 top-1/2 z-10 -translate-y-1/2 bg-black/50 p-2 rounded-full text-white hover:bg-black cursor-pointer"
+                aria-label="Show more trending titles"
+                className="absolute right-0 top-1/2 z-10 -translate-y-1/2 rounded-full bg-black/60 p-2 text-white shadow-lg transition hover:scale-105 hover:bg-black focus:outline-none focus:ring-2 focus:ring-[#FC4747]"
                 onClick={() => scroll(300)}
             >
                 <FaChevronRight />

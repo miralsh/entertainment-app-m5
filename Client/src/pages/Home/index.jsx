@@ -2,7 +2,8 @@ import { LuSearch } from "react-icons/lu";
 import Trending from "../../components/Trending";
 import Recommended from "../../components/Recommended";
 import { useDispatch, useSelector } from "react-redux";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import { LuX } from "react-icons/lu";
 import { img_url } from '../../../constants';
 import { RiBookmarkFill, RiBookmarkLine, RiFilmFill } from 'react-icons/ri';
 import { TbDeviceTvOld } from 'react-icons/tb';
@@ -24,6 +25,7 @@ export default function Home() {
   const delete_bkmark = useSelector(state => state.bookmark.delete_bookmark)
   const [bookmarkTriggeredHere, setBookmarkTriggeredHere] = useState(false);
   const [val, setVal] = useState('')
+  const debounceTimer = useRef()
   const searchResults = useSelector(state => state.media.search_all)
   const toast = useToast()
 
@@ -148,13 +150,12 @@ export default function Home() {
     }
   }
 
-  let debounceTimer;
   //on search 
   const search = (e) => {
     setVal(e.target.value)
-    clearTimeout(debounceTimer);
+    clearTimeout(debounceTimer.current);
     // debouncing to limit the search query and improve performance
-    debounceTimer = setTimeout(() => {
+    debounceTimer.current = setTimeout(() => {
       dispatch(searchAll(e.target.value))
     }, 500);
   }
@@ -170,22 +171,24 @@ export default function Home() {
       dispatch(clearMediaSearchList())
     }
   }, [val])
+  useEffect(() => () => clearTimeout(debounceTimer.current), [])
   return (
     < div className="lg:mx-8 w-full overflow-x-hidden scrollbar-hide px-4">
-      <div className="flex items-center my-4">
-        <LuSearch style={{ 'color': 'white' }} size={24} />
-        <input placeholder="Search for movies or TV series" type="search" className="md:text-xl w-100 mx-2 focus:outline-hidden px-2 py-2 my-2 placeholder-[#87898E]  text-white focus:caret-[#FC4747] focus:border-b-1 focus:border-b-[#5A698F]" onChange={(e) => search(e)} value={val} />
+      <div className="my-5 flex max-w-2xl items-center rounded-xl border border-transparent bg-[#161D2F] px-4 shadow-sm transition focus-within:border-[#5A698F] focus-within:ring-2 focus-within:ring-[#FC4747]/25">
+        <LuSearch className="shrink-0 text-[#BFC4CE]" size={22} />
+        <input aria-label="Search movies and TV series" placeholder="Search for movies or TV series" type="search" className="w-full bg-transparent px-3 py-3 text-base text-white placeholder-[#87898E] outline-none md:text-lg" onChange={search} value={val} />
+        {val && <button type="button" aria-label="Clear search" onClick={() => setVal('')} className="rounded-md p-1 text-[#BFC4CE] transition hover:bg-[#283044] hover:text-white focus:outline-none focus:ring-2 focus:ring-[#FC4747]"><LuX size={20} /></button>}
       </div>
       {/* display search results if found */}
-      {val.trim()!='' && searchResults && searchResults.length > 0?(<><h2 className="text-white ">{`Found ${searchResults.length} results for '${val}'`}</h2></>):(<></>)}
+      {val.trim()!='' && searchResults && searchResults.length > 0?(<><h2 className="mb-3 text-lg font-medium text-white">{`Found ${searchResults.length} results for '${val}'`}</h2></>):(<></>)}
       {val.trim()!='' && searchResults && searchResults.length > 0 ?
         
         
-         ( <div className='grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 md:gap-4 gap-1'>
-            {searchResults.map((element, index) => (
-              <div key={index}>
+         ( <div className='grid grid-cols-2 gap-3 md:grid-cols-3 md:gap-5 lg:grid-cols-4'>
+            {searchResults.map((element) => (
+              <div key={`${element.media_type}-${element.id}`} className='group'>
                 {/* poster img */}
-                <div className=' me-4 bg-cover rounded-xl h-45 my-2 cursor-pointer hover:shadow-sm hover:shadow-white ' style={{ backgroundImage: `url(${element.backdrop_path != null ? img_url + element.backdrop_path : 'https://images.pexels.com/photos/159868/lost-cat-tree-sign-fun-159868.jpeg'})` }} onClick={() => onSelect(element.id, element.media_type)}>
+                <div className='relative aspect-video overflow-hidden rounded-xl bg-[#283044] bg-cover bg-center shadow-sm transition duration-300 group-hover:-translate-y-1 group-hover:shadow-lg group-hover:shadow-black/40 cursor-pointer' style={{ backgroundImage: `linear-gradient(to top, rgba(16,20,30,.8), rgba(16,20,30,.05)), url(${element.backdrop_path != null ? img_url + element.backdrop_path : 'https://images.pexels.com/photos/159868/lost-cat-tree-sign-fun-159868.jpeg'})` }} onClick={() => onSelect(element.id, element.media_type)}>
                   {/* bookmark */}
                   <div className='group flex justify-end pt-2 pe-2'>
                     <div className="flex p-1 w-8 h-8 rounded-full bg-gray-700 opacity-75 cursor-pointer items-center justify-center group-hover:bg-white" onClick={(e) => {
@@ -198,7 +201,7 @@ export default function Home() {
 
                 </div>
                 {/* content */}
-                <div className='flex flex-col'>
+                <div className='flex flex-col px-1'>
                   <div className='flex items-center'>
                     <p className='flex  items-center text-gray-200 py-1 md:ps-4 md:pe-2 px-1 text-xs md:text-sm'>{getYear(element.release_date)}{getYear(element.first_air_date)}</p>
                     <hr className=" w-1 border-white border-dotted border-t-4" />
@@ -206,7 +209,7 @@ export default function Home() {
                     <hr className=" w-1 border-white border-dotted border-t-4 mx-1" />
                     <p className='flex items-center md:px-2 text-xs md:text-sm text-gray-200 capitalize'>{element.media_type == 'movie' ? certificationMap[element.id] || 'Loading...' : tv_cert[element.id] || 'Loading...'}</p>
                   </div>
-<p className='flex  md:text-xl items-center text-white w-[95%]  font-medium md:px-4 pb-4 px-1 overflow-hidden text-ellipsis whitespace-nowrap' style={{
+<p className='flex md:text-lg items-center text-white w-[95%] font-medium pb-4 overflow-hidden text-ellipsis whitespace-nowrap' style={{
                                         overflow: 'hidden',
                                         display: '-webkit-box',
                                         WebkitBoxOrient: 'vertical',
@@ -215,7 +218,7 @@ export default function Home() {
                                         {element.title}{element.name}</p>                     </div>
 
               </div>
-            ))}</div>) : (val.trim()!=''?<h2 className="text-white">No data found</h2>: <>
+            ))}</div>) : (val.trim()!=''?<div className="rounded-xl border border-dashed border-[#5A698F] bg-[#161D2F] p-8 text-center text-[#BFC4CE]"><p className="text-lg font-medium text-white">No titles found</p><p className="mt-1 text-sm">Try a different title, spelling, or keyword.</p></div>: <>
               {/* display trending and recommended content */}
               <h2 className="text-white md:text-2xl text-xl my-4">Trending</h2>
               <Trending />

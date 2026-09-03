@@ -69,16 +69,16 @@ export default function Navbar() {
         window.location.reload();
     }
     return (
-        <div className="  bg-[#161D2F] md:rounded-xl px-2 lg:px-0 w-[100%] lg:w-auto  lg:h-[90vh] relative">
+        <nav aria-label="Main navigation" className="bg-[#161D2F] shadow-lg shadow-black/10 md:rounded-xl px-2 lg:px-0 w-[100%] lg:w-auto lg:h-[90vh] relative">
             <div className="flex lg:flex-col justify-between items-center  mx-2 lg:my-8 ">
                 {/* Logo */}
-                <Link to="/"><MdMovie size={30} className="cursor-pointer" style={{ 'color': "#FC4747" }} /></Link>
+                <Link to="/" aria-label="Go to home"><MdMovie size={30} className="cursor-pointer transition-transform hover:scale-110" style={{ 'color': "#FC4747" }} /></Link>
                 {/* options */}
                 <div className="flex lg:flex-col items-center py-6  lg:h-100">
-                    <Link to="/"><RiLayoutGridFill className={`lg:my-4  mx-2 ${activeP == 'Home' ? 'text-white' : 'text-[#5A698F]'} cursor-pointer`} size={24} onClick={() => { onSelect('Home') }} /></Link>
-                    <Link to="/movies"><RiFilmFill className={`lg:my-4 mx-2  ${activeP == 'Movie' ? 'text-white' : 'text-[#5A698F]'}  cursor-pointer`} size={24} onClick={() => { onSelect('Movie') }} /></Link>
-                    <Link to="/tvseries"><TbDeviceTvOld className={`lg:my-4  mx-2 ${activeP == 'Tv' ? 'text-white' : 'text-[#5A698F]'} cursor-pointer`} size={24} onClick={() => { onSelect('Tv') }} /></Link>
-                    <RiBookmarkFill className={`lg:my-4 mx-2  ${activeP == 'Bookmark' ? 'text-white' : 'text-[#5A698F]'} cursor-pointer`} size={24} onClick={() => { onSelect('Bookmark') }} />
+                    <Link to="/" aria-label="Home" title="Home" className={`rounded-md p-2 transition hover:bg-[#283044] focus:outline-none focus:ring-2 focus:ring-[#FC4747] ${activeP == 'Home' ? 'text-white' : 'text-[#5A698F]'}`} onClick={() => onSelect('Home')}><RiLayoutGridFill size={24} /></Link>
+                    <Link to="/movies" aria-label="Movies" title="Movies" className={`rounded-md p-2 transition hover:bg-[#283044] focus:outline-none focus:ring-2 focus:ring-[#FC4747] ${activeP == 'Movie' ? 'text-white' : 'text-[#5A698F]'}`} onClick={() => onSelect('Movie')}><RiFilmFill size={24} /></Link>
+                    <Link to="/tvseries" aria-label="TV series" title="TV series" className={`rounded-md p-2 transition hover:bg-[#283044] focus:outline-none focus:ring-2 focus:ring-[#FC4747] ${activeP == 'Tv' ? 'text-white' : 'text-[#5A698F]'}`} onClick={() => onSelect('Tv')}><TbDeviceTvOld size={24} /></Link>
+                    <button type="button" aria-label="Bookmarks" title="Bookmarks" className={`rounded-md p-2 transition hover:bg-[#283044] focus:outline-none focus:ring-2 focus:ring-[#FC4747] ${activeP == 'Bookmark' ? 'text-white' : 'text-[#5A698F]'}`} onClick={() => onSelect('Bookmark')}><RiBookmarkFill size={24} /></button>
                 </div>
                 
                 {/* SignIn/Logout */}
@@ -91,6 +91,6 @@ export default function Navbar() {
                 </div>
             </div>
 
-        </div>
+        </nav>
     )
 }
