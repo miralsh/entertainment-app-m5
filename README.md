@@ -64,18 +64,23 @@ https://documenter.getpostman.com/view/18088497/2sB2x5GXpa
 Screens:
 
 Home
+
 <img width="1920" height="913" alt="Screenshot 2026-09-03 at 20-07-02 Entertainment App" src="https://github.com/user-attachments/assets/9aedd440-e4db-43a4-892a-f3c2074d3ec9" />
 
 Movies
+
 <img width="1920" height="913" alt="Screenshot 2026-09-03 at 20-08-43 Entertainment App" src="https://github.com/user-attachments/assets/3d96eef4-4b3a-482b-8c4a-b344541e506b" />
 
 Movie Detail
+
 <img width="1920" height="913" alt="Screenshot 2026-09-03 at 20-09-58 Entertainment App" src="https://github.com/user-attachments/assets/f2a40533-d36d-4358-9210-98818332f1fd" />
 
 Bookmark
+
 <img width="1920" height="1297" alt="Screenshot 2026-09-03 at 20-11-15 Entertainment App" src="https://github.com/user-attachments/assets/7eb38db0-06df-4199-9f70-a233ab8d15db" />
 
 Login/Sign up
+
 <img width="1920" height="1517" alt="Screenshot 2026-09-03 at 20-11-53 Entertainment App" src="https://github.com/user-attachments/assets/19c73c54-ff9b-44c8-9a74-5e3968579b8e" />
 
 Contact
