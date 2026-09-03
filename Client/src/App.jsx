@@ -9,6 +9,7 @@ import Movies from './pages/Movies'
 import MovieDetail from './pages/MovieDetail'
 import TvSeriesDetail from './pages/TvSeriesDetail'
 import Bookmark from './pages/Bookmark'
+import Footer from './components/Footer'
 import { useDispatch } from 'react-redux';
 import { useEffect } from 'react'
 import Tv from './pages/Tv'
@@ -26,9 +27,9 @@ function App() {
   }, [location.pathname])
   return (
     <BrowserRouter>
-      <div className='min-h-screen bg-[#10141E] font-outfit font-light lg:flex lg:h-screen lg:overflow-hidden'>
+      <div className='min-h-screen bg-[#0B0B0D] font-outfit font-light'>
           <Navbar />
-          <main className='min-w-0 flex-1 py-4 lg:h-screen lg:overflow-y-auto lg:px-6 lg:py-6'>
+          <main className='min-w-0 px-0 py-4 md:px-4 lg:px-6 lg:py-6'>
             <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/movies" element={<Movies />} />
@@ -39,6 +40,7 @@ function App() {
             <Route path="/tvSeriesDetails/:id" element={<TvSeriesDetail/>}/>
             <Route path='/bookmarked' element={<Bookmark/>}/>
             </Routes>
+            <Footer />
           </main>
       </div>
     </BrowserRouter>

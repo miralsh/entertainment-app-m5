@@ -69,23 +69,23 @@ export default function Navbar() {
         window.location.reload();
     }
     return (
-        <nav aria-label="Main navigation" className="relative w-full bg-[#161D2F] px-2 shadow-lg shadow-black/10 md:rounded-xl lg:sticky lg:top-0 lg:h-screen lg:w-24 lg:shrink-0 lg:rounded-none lg:px-0">
-            <div className="mx-2 flex items-center justify-between lg:my-0 lg:h-full lg:flex-col lg:py-8">
+        <nav aria-label="Main navigation" className="sticky top-0 z-50 w-full border-b border-white/10 bg-[#0B0B0D]/95 px-3 shadow-lg shadow-black/30 backdrop-blur-md">
+            <div className="mx-auto flex h-16 max-w-[1600px] items-center justify-between gap-4 md:h-[4.75rem] md:px-5">
                 {/* Logo */}
-                <Link to="/" aria-label="Go to home"><MdMovie size={30} className="cursor-pointer transition-transform hover:scale-110" style={{ 'color': "#FC4747" }} /></Link>
+                <Link to="/" aria-label="CineVault home" className="flex shrink-0 items-center gap-2 text-white"><MdMovie size={30} className="cursor-pointer transition-transform hover:scale-110" style={{ 'color': "#E50914" }} /><span className="hidden text-lg font-bold tracking-tight sm:block">CineVault</span></Link>
                 {/* options */}
-                <div className="flex lg:flex-col items-center py-6  lg:h-100">
-                    <Link to="/" aria-label="Home" title="Home" className={`rounded-md p-2 transition hover:bg-[#283044] focus:outline-none focus:ring-2 focus:ring-[#FC4747] ${activeP == 'Home' ? 'text-white' : 'text-[#5A698F]'}`} onClick={() => onSelect('Home')}><RiLayoutGridFill size={24} /></Link>
-                    <Link to="/movies" aria-label="Movies" title="Movies" className={`rounded-md p-2 transition hover:bg-[#283044] focus:outline-none focus:ring-2 focus:ring-[#FC4747] ${activeP == 'Movie' ? 'text-white' : 'text-[#5A698F]'}`} onClick={() => onSelect('Movie')}><RiFilmFill size={24} /></Link>
-                    <Link to="/tvseries" aria-label="TV series" title="TV series" className={`rounded-md p-2 transition hover:bg-[#283044] focus:outline-none focus:ring-2 focus:ring-[#FC4747] ${activeP == 'Tv' ? 'text-white' : 'text-[#5A698F]'}`} onClick={() => onSelect('Tv')}><TbDeviceTvOld size={24} /></Link>
-                    <button type="button" aria-label="Bookmarks" title="Bookmarks" className={`rounded-md p-2 transition hover:bg-[#283044] focus:outline-none focus:ring-2 focus:ring-[#FC4747] ${activeP == 'Bookmark' ? 'text-white' : 'text-[#5A698F]'}`} onClick={() => onSelect('Bookmark')}><RiBookmarkFill size={24} /></button>
+                <div className="flex min-w-0 flex-1 items-center justify-end gap-2 overflow-x-auto py-2 sm:justify-start sm:gap-4 md:gap-8">
+                    <Link to="/" aria-label="Home" className={`inline-flex shrink-0 items-center gap-2 rounded-md px-2 py-2 text-sm font-medium transition hover:text-white focus:outline-none focus:ring-2 focus:ring-[#E50914] ${activeP == 'Home' ? 'text-white' : 'text-[#B3B3B3]'}`} onClick={() => onSelect('Home')}><RiLayoutGridFill size={20} /><span className="hidden md:inline">Home</span></Link>
+                    <Link to="/movies" aria-label="Movies" className={`inline-flex shrink-0 items-center gap-2 rounded-md px-2 py-2 text-sm font-medium transition hover:text-white focus:outline-none focus:ring-2 focus:ring-[#E50914] ${activeP == 'Movie' ? 'text-white' : 'text-[#B3B3B3]'}`} onClick={() => onSelect('Movie')}><RiFilmFill size={20} /><span className="hidden md:inline">Movies</span></Link>
+                    <Link to="/tvseries" aria-label="TV series" className={`inline-flex shrink-0 items-center gap-2 rounded-md px-2 py-2 text-sm font-medium transition hover:text-white focus:outline-none focus:ring-2 focus:ring-[#E50914] ${activeP == 'Tv' ? 'text-white' : 'text-[#B3B3B3]'}`} onClick={() => onSelect('Tv')}><TbDeviceTvOld size={20} /><span className="hidden md:inline">TV Series</span></Link>
+                    <button type="button" aria-label="Bookmarks" className={`inline-flex shrink-0 items-center gap-2 rounded-md px-2 py-2 text-sm font-medium transition hover:text-white focus:outline-none focus:ring-2 focus:ring-[#E50914] ${activeP == 'Bookmark' ? 'text-white' : 'text-[#B3B3B3]'}`} onClick={() => onSelect('Bookmark')}><RiBookmarkFill size={20} /><span className="hidden md:inline">My List</span></button>
                 </div>
                 
                 {/* SignIn/Logout */}
-                <div className="flex lg:flex-col items-center justify-end lg:absolute lg:bottom-0 lg:pb-8">
-                    {localStorage.getItem("accesstoken") ? (<LiaSignOutAltSolid className="cursor-pointer" size={24} style={{ color: "white" }} onClick={() => Logout()} />) :
-                        <Link to="/signup"> <div className="flex justify-center items-center  w-8 h-8 rounded-full cursor-pointer bg-[#5A698F]">
-                            <CgProfile size={30} className="text-[##384259]" />
+                <div className="flex shrink-0 items-center justify-end">
+                    {localStorage.getItem("accesstoken") ? (<button type="button" aria-label="Sign out" title="Sign out" className="rounded-md p-2 text-white transition hover:bg-white/10 focus:outline-none focus:ring-2 focus:ring-[#E50914]" onClick={Logout}><LiaSignOutAltSolid size={23} /></button>) :
+                        <Link to="/signup" aria-label="Create an account"> <div className="flex h-9 w-9 items-center justify-center rounded bg-[#E50914] transition hover:bg-[#F6121D]">
+                            <CgProfile size={25} className="text-white" />
                         </div></Link>
                     }
                 </div>
